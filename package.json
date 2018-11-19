@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/way2datta/expense-tracker-nodejs/issues"
   },
-  "homepage": "https://gitlab.com/way2datta/expense-tracker-nodejs#readme"
+  "homepage": "https://gitlab.com/way2datta/expense-tracker-nodejs#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }

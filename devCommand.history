@@ -1,3 +1,5 @@
 #create a package.json file
 #SYNOPSIS§
 npm init
+
+npm install express --save
