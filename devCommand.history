@@ -2,7 +2,7 @@ npm init
 
 npm install express --save
 
-touch .gitignore
+touch .gitignore #Add files to ignore
 
 npm install --save-dev @babel/core @babel/cli @babel/preset-env
 npm install --save-dev @babel/register
