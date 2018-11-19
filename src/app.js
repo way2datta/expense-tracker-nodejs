@@ -5,6 +5,8 @@ const port = 3000;
 
 app.get('/', (request, response) => response.send('Hello World!'));
 
+app.post('/register', (request, response)=> response.send("Register user"));
+app.post('/login', (request, response)=> response.send("Login user"));
 
 app.get('/users', (request, response)=> response.send("Get users"));
 app.get('/users/:id', (request, response)=> response.send("Get user by id"));
