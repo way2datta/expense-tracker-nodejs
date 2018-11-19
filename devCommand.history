@@ -1,9 +1,22 @@
-#create a package.json file
-#SYNOPSIS§
 npm init
 
 npm install express --save
 
 touch .gitignore
 
-#introduced src/app.js
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install --save-dev @babel/register
+npm install --save-dev rimraf
+
+touch .babelrc
+
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "entry"
+            }
+        ]
+    ]
+}
