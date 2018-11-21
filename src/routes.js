@@ -1,17 +1,27 @@
 import { Router } from 'express';
+import { LoginController } from './controllers/loginController';
+import { AuthController } from "./controllers/authController"; 
+import { UserController } from "./controllers/userController";
 
 const router = Router();
 
 router.get('/', (request, response) => response.send('Hello World!'));
 
-router.post('/register', (request, response)=> response.send("Register user"));
-router.post('/login', (request, response)=> response.send("Login user"));
+const loginController = new LoginController();
+router.post('/login', loginController.execute);
 
-router.get('/users', (request, response)=> response.send("Get users"));
-router.get('/users/:id', (request, response)=> response.send("Get user by id"));
-router.delete('/users/:id', (request, response)=> response.send("Delete user by id"));
-router.put('/users/:id', (request, response)=> response.send("Update user by id"));
-router.post('/users', (request, response)=> response.send("Post users"));
+const authController = new AuthController();
+router.post('/authorize', authController.execute);
+
+const userController = new UserController();
+
+router.post('/register', userController.create);
+
+
+router.get('/users', userController.getAll);
+router.get('/users/:id', userController.getById);
+router.delete('/users/:id', userController.delete);
+router.put('/users/:id', userController.update);
 
 router.get('/users/:id/expenses/categories', (request, response)=> response.send("Post expense categories for user"));
 router.get('/users/:id/expenses/categories/:categoryId', (request, response)=> response.send("Get expense categories for user by id"));
