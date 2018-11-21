@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { LoginController } from './controllers/loginController';
-import { AuthController } from "./controllers/authController"; 
-import { UserController } from "./controllers/userController";
-import { ExpenseCategoryController } from "./controllers/expenseCategoryController";
-import { ExpenseController } from "./controllers/expenseController";
+import { LoginController } from '../controllers/loginController';
+import { AuthController } from "../controllers/authController"; 
+import { UserController } from "../controllers/userController";
+import { ExpenseCategoryController } from "../controllers/expenseCategoryController";
+import { ExpenseController } from "../controllers/expenseController";
 
 const router = Router();
 

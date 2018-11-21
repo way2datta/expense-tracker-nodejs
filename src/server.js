@@ -1,5 +1,5 @@
 const express = require('express');
-import routes from './routes';
+import routes from './routes/rest-api';
 
 const app = express();
 const port = 3000;
