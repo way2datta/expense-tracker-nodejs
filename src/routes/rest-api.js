@@ -10,31 +10,30 @@ const router = Router();
 router.get('/', (request, response) => response.send('Hello World!'));
 
 const loginController = new LoginController();
-router.post('/login', loginController.execute);
+router.get('/userJWTValidation', loginController.execute);
 
 const authController = new AuthController();
-router.post('/authorize', authController.execute);
+router.get('/JwtValidation', authController.execute);
 
 const userController = new UserController();
-router.post('/register', userController.create);
-router.get('/users', userController.getAll);
-router.get('/users/:id', userController.getById);
-router.delete('/users/:id', userController.delete);
-router.put('/users/:id', userController.update);
-router.post('/users', userController.create);
+router.get('/creationOfUserDetails', userController.create);
+router.get('/getAllusersDetails', userController.getAll);
+router.get('/fetchUserDetails', userController.getById);
+router.get('/deletionOfUserDetails', userController.delete);
+router.get('/updationOfUserDetails', userController.update);
 
 const expenseCategoryController = new ExpenseCategoryController();
-router.get('/users/:id/expenses/categories', expenseCategoryController.getAll);
-router.get('/users/:id/expenses/categories/:categoryId', expenseCategoryController.getById);
-router.delete('/users/:id/expenses/categories/:categoryId', expenseCategoryController.delete);
-router.put('/users/:id/expenses/categories/:categoryId', expenseCategoryController.update);
-router.post('/users/:id/expenses/categories', expenseCategoryController.create);
+router.get('/getExpenseCategoryOfUsers', expenseCategoryController.getAll);
+router.get('/getExpenseCategoryOfUser', expenseCategoryController.getById);
+router.get('/deletionExpenseCategoryOfUser', expenseCategoryController.delete);
+router.get('/updationExpenseCategoryOfUser', expenseCategoryController.update);
+router.get('/creationOfExpenseCategoryOfUser', expenseCategoryController.create);
 
 const expenseController = new ExpenseController();
-router.get('/users/:id/expenses/', expenseController.getAll);
-router.get('/users/:id/expenses/:expenseId', expenseController.getById);
-router.delete('/users/:id/expenses/:expenseId', expenseController.delete);
-router.put('/users/:id/expenses/categories/:expenseId', expenseController.update);
-router.post('/users/:id/expenses', expenseController.create);
+router.get('/getExpenseCategoryOfUsers', expenseController.getAll);
+router.get('/getExpenseCategoryOfUser', expenseController.getById);
+router.get('/deletionOfExpenseCategoryOfUser', expenseController.delete);
+router.get('/updationOfExpenseOfUser', expenseController.update);
+router.get('/creationOfExpenseOfUser', expenseController.create);
 
 export default router;
