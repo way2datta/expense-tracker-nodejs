@@ -26,3 +26,5 @@ npm install webpack webpack-cli --save-dev
 
  "client": "npx webpack",
     "build": "npm run clean && mkdir dist && npm run client && babel src/backend/server.js -s -d dist",
+
+    npm install  babel-loader  --save-dev

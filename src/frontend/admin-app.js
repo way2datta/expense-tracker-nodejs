@@ -1,14 +1,4 @@
-window.renderDashboard = () => {
-    // ReactDOM.render(
-    //     (
-    //         <BrowserRouter>
-    //             <div>
-    //                 <Router />
-    //             </div>
-    //         </BrowserRouter>
-    //     ), document.getElementById('content')
-    // );
-    console.log("Try! React!");
-};
+import { Dashboard } from "./components/dashboard";
 
-window.renderDashboard();
+const instance  = new Dashboard();
+instance.render();
