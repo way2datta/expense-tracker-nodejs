@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && mkdir dist && babel src/server.js -s -d dist",
+    "build": "npm run clean && mkdir dist && babel src/backend/server.js -s -d dist",
     "start": "npm run build && node ./bin/dev"
   },
   "repository": {
