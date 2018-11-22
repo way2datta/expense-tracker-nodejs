@@ -1,4 +1,6 @@
-import { Dashboard } from "./components/dashboard";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Dashboard from "./components/dashboard";
 
-const instance  = new Dashboard();
-instance.render();
+const node = document.getElementById("content");
+ReactDOM.render(<Dashboard name="WALL-E" />, node);

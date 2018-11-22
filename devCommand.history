@@ -28,3 +28,4 @@ npm install webpack webpack-cli --save-dev
     "build": "npm run clean && mkdir dist && npm run client && babel src/backend/server.js -s -d dist",
 
     npm install  babel-loader  --save-dev
+    npm install --save-dev @babel/preset-react
