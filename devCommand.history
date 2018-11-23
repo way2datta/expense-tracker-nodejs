@@ -31,3 +31,4 @@ npm install webpack webpack-cli --save-dev
     npm install --save-dev @babel/preset-react
 
     npm install react-router-dom
+  devtool: 'inline-source-map', in webpack
