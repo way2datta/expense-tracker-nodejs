@@ -20,7 +20,9 @@
   },
   "homepage": "https://gitlab.com/way2datta/expense-tracker-nodejs#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongoose": "^5.3.13",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1"

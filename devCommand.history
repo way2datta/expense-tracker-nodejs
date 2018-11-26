@@ -32,3 +32,6 @@ npm install webpack webpack-cli --save-dev
 
     npm install react-router-dom
   devtool: 'inline-source-map', in webpack
+
+  npm install mongoose --save
+  npm install body-parser --save
