@@ -4,4 +4,4 @@ const categorySchema = mongoose.Schema({
    	name: String
 });
 
-module.exports = mongoose.model('expense-categories', categorySchema);
+module.exports = mongoose.model('ExpenseCategory', categorySchema);

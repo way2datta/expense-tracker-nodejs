@@ -1,23 +1,57 @@
+const Expense = require('../models/Expense');
+
 export class ExpenseController {
     create(request, response) {
-        console.log("Expense  creation logic...")
-        return response.send('Expense created successfully.');
+        var expense = new Expense(request.body);
+        expense.save(function (error) {
+            if (error) {
+                console.log(error);
+                response.status(400).send("unable to save to database");
+            }
+        });
+        return response.json(expense);
     }
     getById(request, response) {
-        console.log("Get expense  by id...")
-        return response.send('Get expense  by id...');
+        Expense.findOne({ _id: request.params.expenseId })
+            .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
+            .exec(function (error, expense) {
+                response.json(expense);
+            });
     }
     getAll(request, response) {
-        console.log("Get all expense ...")
-        return response.send('Get all expense ...');
+        Expense.find()
+            .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
+            .exec(function (error, expenses) {
+                response.json(expenses);
+            });
     }
     update(request, response) {
-        console.log("Update expense ...")
-        return response.send('Update expense ...');
+        Expense.findById(request.params.expenseId, function (error, persisted) {
+            if (!persisted) {
+                console.log("Expense not found.");
+                return response.sendStatus(400);
+            }
+            var fromBody = new Expense(request.body);
+            persisted.amount = fromBody.amount;
+            persisted.description = fromBody.description;
+            persisted.incurredAt = fromBody.incurredAt;
+
+            persisted.save(function (errorWhileUpdating) {
+                if (errorWhileUpdating) {
+                    console.log("Expense category not found.");
+                    return response.sendStatus(400);
+                }
+            });
+        });
     }
     delete(request, response) {
-        console.log("Delete expense ...")
-        return response.send('Delete expense ...');
+        Expense.deleteOne({ _id: request.params.expenseId }, function (error) {
+            if (error) {
+                console.log(error);
+                return res.sendStatus(400);
+            }
+            response.json('Deleted');
+        });
     }
 
 }

@@ -1,4 +1,5 @@
-const ExpenseCategory = require('./../models/ExpenseCategory');
+const ExpenseCategory = require('../models/ExpenseCategory');
+
 export class ExpenseCategoryController {
     create(request, response) {
         var expenseCategory = new ExpenseCategory(request.body);
@@ -45,10 +46,14 @@ export class ExpenseCategoryController {
         });
         return response.send('Update expense category...');
     }
-    
-    delete(request, response) {
-        console.log("Delete expense category...")
-        return response.send('Delete expense category...');
-    }
 
+    delete(request, response) {
+        ExpenseCategory.deleteOne({ _id: request.params.categoryId }, function (error) {
+            if (error) {
+                console.log(error);
+                return res.sendStatus(400);
+            }
+            response.json('Deleted');
+        });
+    }
 }
