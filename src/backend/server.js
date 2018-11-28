@@ -3,7 +3,6 @@ import { join } from 'path';
 import mongoose from "mongoose";
 import routes from './routes/rest-api';
 
-
 const app = express();
 const port = 3000;
 
