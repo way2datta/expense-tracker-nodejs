@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import GridModel from "./GridModel";
 
 export default class Expense extends React.Component {
   constructor(props) {
@@ -19,10 +20,13 @@ export default class Expense extends React.Component {
   }
 
   render() {
+    const headers = ['Description','Amount','Incurred At'];
+    const attributes = ['description','amount','incurredAt'];
+
     return (
-      <ul>
-        {this.state.expenses.map(expense => <li>{expense.description} {expense.amount} {expense.incurredAt} {expense.category.name}</li>)}
-      </ul>
+      <GridModel headers={headers}
+        attributes={attributes}
+        datasource={this.state.expenses} />
     )
   }
 }
