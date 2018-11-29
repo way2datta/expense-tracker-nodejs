@@ -7,7 +7,9 @@
     "clean": "rm -rf dist",
     "client": "npx webpack",
     "build": "npm run clean && mkdir dist && npm run client && babel src/backend/server.js -s -d dist",
-    "start": "npm run build && node ./bin/dev"
+    "start": "npm run build && node ./bin/dev",
+    "lint-server": "./node_modules/.bin/eslint src/backend",
+    "lint-server-fix": "./node_modules/.bin/eslint src/backend --fix"
   },
   "repository": {
     "type": "git",

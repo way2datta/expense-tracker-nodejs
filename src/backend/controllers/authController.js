@@ -1,6 +1,5 @@
-export class AuthController {
+export default class AuthController {
     execute(request, response) {
-        console.log("Verify token")
         return response.send('Request contains valid token.');
     }
 }

@@ -1,9 +1,9 @@
-export class BaseController {
-   handleError(error) {
+export default class BaseController {
+    handleError(error) {
 
-   }
+    }
 
-   notFound(response) {
+    notFound(response) {
         response.sendStatus(404);
-   }
+    }
 }
