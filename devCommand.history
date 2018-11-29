@@ -38,3 +38,5 @@ npm install webpack webpack-cli --save-dev
   npm install axios --save 
   npm install lodash --save
   npm install http-status-codes --save
+  npm install eslint --save-dev
+  eslint --init

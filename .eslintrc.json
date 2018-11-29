@@ -1,0 +1,8 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "max-len": ["error", 120],
+        "indent": ["error", 4],
+        "class-methods-use-this": "off"
+    }
+}
