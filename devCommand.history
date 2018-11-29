@@ -43,3 +43,7 @@ npm install webpack webpack-cli --save-dev
 
   --npm install eslint eslint-plugin-react eslint-watch --save-dev
   npm install babel-eslint --save-dev
+
+  touch .env.example
+
+ npm install dotenv --save

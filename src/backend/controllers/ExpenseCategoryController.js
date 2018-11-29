@@ -1,5 +1,5 @@
-const HttpStatus = require('http-status-codes');
-const ExpenseCategory = require('../models/ExpenseCategory');
+import HttpStatus from 'http-status-codes';
+import ExpenseCategory from "../models/ExpenseCategory";
 
 export default class ExpenseCategoryController {
     create(request, response) {

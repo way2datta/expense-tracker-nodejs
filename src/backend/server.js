@@ -2,13 +2,13 @@ import express from 'express';
 import { join } from 'path';
 import mongoose from 'mongoose';
 import servicesRoutes from './routes/services';
+import { databaseConnectionString, apiServerPort } from "./config";
 
 const app = express();
-const port = 3000;
 
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
-mongoose.connect('mongodb://localhost:27017/expense-tracker');
+mongoose.connect(databaseConnectionString);
 
 const bodyParser = require('body-parser');
 
@@ -26,4 +26,4 @@ app.get('/admin', (request, response) => {
     response.sendFile(join(__dirname, './../frontend/index.html'));
 });
 
-app.listen(port, () => console.log(`Expense tracker app listening on port ${port}!`));
+app.listen(apiServerPort, () => console.log(`Expense tracker app listening on port ${apiServerPort}!`));
