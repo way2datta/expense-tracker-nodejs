@@ -1,5 +1,7 @@
-import React from "react";
-var _ = require('lodash');;
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const _ = require('lodash');
 
 export default class GridModel extends React.Component {
     constructor(props) {
@@ -9,43 +11,58 @@ export default class GridModel extends React.Component {
     }
 
     renderHeaders() {
-        return (<tr key="column-header">
-            {(() => {
-                const headers = _.map(this.props.headers, (header, index) => {
-                    return (<th key={`th_${index}`}>{header}</th>);
-                });
-                return headers;
-            })()}
-        </tr>);
+        return (
+            <tr key="column-header">
+                {(() => {
+                    const headers = _.map(this.props.headers, (header, index) => 
+                        (<th key={`th_${index}`}>{header}</th>));
+                    return headers;
+                })()}
+            </tr>
+        );
     }
 
     renderContent() {
         let counter = 0;
         return this.props.datasource.map(((model) => {
             counter += 1;
-            return (<tr key={`key_${counter}`}>
-                {(
-                    () => {
-                        const columns = _.map(this.props.attributes, (attribute, index) => {
-                            const value = model[attribute];
-                            return (<td key={index} > {value} </td>);
-                        });
-                        return columns;
-                    })()}
-            </tr>);
+            return (
+                <tr key={`key_${counter}`}>
+                    {(
+                        () => {
+                            const columns = _.map(this.props.attributes, (attribute, index) => {
+                                const value = model[attribute];
+                                return (
+                                    <td key={index}>
+                                        {' '}
+                                        {value}
+                                        {' '}
+                                    </td>
+                                );
+                            });
+                            return columns;
+                        })()}
+                </tr>
+            );
         }));
     }
 
     render() {
         return (
             <table className="table">
-                <thead className="column-headers">
+                <thead className="headers">
                     {this.renderHeaders()}
                 </thead>
-                <tbody className="table-content">
+                <tbody className="content">
                     {this.renderContent()}
                 </tbody>
             </table>
         );
     }
 }
+
+GridModel.propTypes = {
+    attributes: PropTypes.arrayOf(PropTypes.string),
+    headers: PropTypes.arrayOf(PropTypes.string),
+    datasource: PropTypes.array
+};

@@ -9,7 +9,9 @@
     "build": "npm run clean && mkdir dist && npm run client && babel src/backend/server.js -s -d dist",
     "start": "npm run build && node ./bin/dev",
     "lint-server": "./node_modules/.bin/eslint src/backend",
-    "lint-server-fix": "./node_modules/.bin/eslint src/backend --fix"
+    "lint-server-fix": "./node_modules/.bin/eslint src/backend --fix",
+    "lint-client": "./node_modules/.bin/eslint src/frontend",
+    "lint-client-fix": "./node_modules/.bin/eslint src/frontend --fix"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,7 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",

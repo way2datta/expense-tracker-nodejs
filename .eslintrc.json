@@ -1,8 +1,22 @@
 {
-    "extends": "airbnb",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "react"
+    ],
+    "parser": "babel-eslint",
     "rules": {
-        "max-len": ["error", 120],
-        "indent": ["error", 4],
-        "class-methods-use-this": "off"
+        "max-len": [
+            "error",
+            120
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "class-methods-use-this": "off",
+        "no-console": "warn"
     }
 }
