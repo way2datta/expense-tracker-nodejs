@@ -12,7 +12,7 @@ export default class Expense extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/users/1/expenses/`)
+    axios.get(`http://localhost:3000/api/users/1/expenses/`)
       .then(response => {
         const expenses = response.data;
         this.setState({ expenses });

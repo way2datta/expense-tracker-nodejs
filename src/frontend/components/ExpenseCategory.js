@@ -12,7 +12,7 @@ export default class ExpenseCategory extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/users/1/expenses/categories/`)
+    axios.get(`http://localhost:3000/api/users/1/expenses/categories/`)
       .then(response => {
         const categories = response.data;
         this.setState({ categories });

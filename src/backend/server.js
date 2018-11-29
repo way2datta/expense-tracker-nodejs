@@ -1,7 +1,7 @@
 import express from 'express';
 import { join } from 'path';
 import mongoose from "mongoose";
-import routes from './routes/rest-api';
+import servicesRoutes from './routes/services';
 
 const app = express();
 const port = 3000;
@@ -14,7 +14,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', routes);
+app.use('/api/', servicesRoutes);
 app.all('/server.*', function (request,response) {
     response.status(403).send({
        message: 'Access Forbidden'
