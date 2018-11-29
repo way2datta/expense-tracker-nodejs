@@ -56,6 +56,7 @@ export default class ExpenseController {
                 }
                 return response.status(HttpStatus.OK).json(persistedEntity);
             });
+            return response.setStatus(HttpStatus.OK);
         });
     }
 
@@ -65,7 +66,7 @@ export default class ExpenseController {
                 console.log(error);
                 return response.sendStatus(HttpStatus.BAD_REQUEST);
             }
-            response.sendStatus(HttpStatus.OK);
+            return response.sendStatus(HttpStatus.OK);
         });
     }
 }
