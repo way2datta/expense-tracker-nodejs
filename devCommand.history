@@ -36,4 +36,5 @@ npm install webpack webpack-cli --save-dev
   npm install mongoose --save
   npm install body-parser --save
   npm install axios --save 
-  npm install lodash --save  
+  npm install lodash --save
+  npm install http-status-codes --save

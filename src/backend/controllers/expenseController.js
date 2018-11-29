@@ -6,30 +6,38 @@ export class ExpenseController {
         expense.save(function (error) {
             if (error) {
                 console.log(error);
-                response.status(400).send("unable to save to database");
+                response.status(HttpStatus.BAD_REQUEST).send('Unable to create expense.');
             }
+            return response.status(HttpStatus.CREATED).json(expense);
         });
-        return response.json(expense);
     }
     getById(request, response) {
         Expense.findOne({ _id: request.params.expenseId })
             .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
             .exec(function (error, expense) {
-                response.json(expense);
+                if (error) {
+                    console.log(error);
+                    return response.sendStatus(HttpStatus.BAD_REQUEST);
+                }
+                response.status(HttpStatus.OK).json(expense);
             });
     }
     getAll(request, response) {
         Expense.find()
             .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
             .exec(function (error, expenses) {
-                response.json(expenses);
+                if (error) {
+                    console.log(error);
+                    return response.sendStatus(HttpStatus.BAD_REQUEST);
+                }
+                response.status(HttpStatus.OK).json(expenses);
             });
     }
     update(request, response) {
         Expense.findById(request.params.expenseId, function (error, persisted) {
             if (!persisted) {
                 console.log("Expense not found.");
-                return response.sendStatus(400);
+                return response.sendStatus(HttpStatus.BAD_REQUEST);
             }
             var fromBody = new Expense(request.body);
             persisted.amount = fromBody.amount;
@@ -38,9 +46,10 @@ export class ExpenseController {
 
             persisted.save(function (errorWhileUpdating) {
                 if (errorWhileUpdating) {
-                    console.log("Expense category not found.");
-                    return response.sendStatus(400);
+                    console.log(errorWhileUpdating);
+                    return response.sendStatus(HttpStatus.BAD_REQUEST);
                 }
+                return response.status(HttpStatus.OK).json(persisted);
             });
         });
     }
@@ -48,9 +57,9 @@ export class ExpenseController {
         Expense.deleteOne({ _id: request.params.expenseId }, function (error) {
             if (error) {
                 console.log(error);
-                return res.sendStatus(400);
+                return res.sendStatus(HttpStatus.BAD_REQUEST);
             }
-            response.json('Deleted');
+            response.sendStatus(HttpStatus.OK);
         });
     }
 
