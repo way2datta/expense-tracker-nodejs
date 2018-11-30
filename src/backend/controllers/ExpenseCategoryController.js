@@ -7,13 +7,14 @@ export default class ExpenseCategoryController extends BaseController {
         super(props);
         this.update = this.update.bind(this)
     }
+
     create(request, response) {
         const model = new ExpenseCategory(request.body);
         model.save((error) => {
             if (error) {
-                return super.BAD_REQUEST(response, 'Unable to create expense category.');
+                super.BAD_REQUEST(response, 'Unable to create expense category.');
             }
-            return super.CREATED(response, model);
+            super.CREATED(response, model);
         });
     }
 
@@ -22,9 +23,9 @@ export default class ExpenseCategoryController extends BaseController {
         ExpenseCategory.findOne(criteria, (error, categories) => {
             if (error) {
                 Logger.log(error);
-                return super.BAD_REQUEST(response);
+                super.BAD_REQUEST(response);
             }
-            return super.OK(response, categories);
+            super.OK(response, categories);
         });
     }
 
@@ -32,9 +33,9 @@ export default class ExpenseCategoryController extends BaseController {
         ExpenseCategory.find({}, (error, categories) => {
             if (error) {
                 Logger.log(error);
-                return super.BAD_REQUEST(response);
+                super.BAD_REQUEST(response);
             }
-            return super.OK(response, categories);
+            super.OK(response, categories);
         });
     }
 
@@ -43,15 +44,15 @@ export default class ExpenseCategoryController extends BaseController {
         ExpenseCategory.findById(categoryId, (error, persisted) => {
             if (error) {
                 Logger.log(error);
-                return super.BAD_REQUEST(response);
+                super.BAD_REQUEST(response);
             }
 
             if (!persisted) {
                 Logger.log('Expense category not found.');
-                return super.BAD_REQUEST(response);
+                super.BAD_REQUEST(response);
             }
             const model = new ExpenseCategory(request.body);
-            return this.updateInternal(model, persisted, response);
+            this.updateInternal(model, persisted, response);
         });
     }
 
@@ -72,9 +73,9 @@ export default class ExpenseCategoryController extends BaseController {
         ExpenseCategory.deleteOne(criteria, (error) => {
             if (error) {
                 Logger.log(error);
-                return super.BAD_REQUEST(response);
+                super.BAD_REQUEST(response);
             }
-            return super.OK(response);
+            super.OK(response);
         });
     }
 }
