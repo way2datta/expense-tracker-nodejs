@@ -1,12 +1,13 @@
 import HttpStatus from 'http-status-codes';
 import Expense from "../models/Expense";
+import Logger from "./../Logger";
 
 export default class ExpenseController {
     create(request, response) {
         const expense = new Expense(request.body);
         expense.save((error) => {
             if (error) {
-                console.log(error);
+                Logger.log(error);
                 return response.status(HttpStatus.BAD_REQUEST).send('Unable to create expense.');
             }
             return response.status(HttpStatus.CREATED).json(expense);
@@ -18,7 +19,7 @@ export default class ExpenseController {
             .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
             .exec((error, expense) => {
                 if (error) {
-                    console.log(error);
+                    Logger.log(error);
                     return response.sendStatus(HttpStatus.BAD_REQUEST);
                 }
                 return response.status(HttpStatus.OK).json(expense);
@@ -30,7 +31,7 @@ export default class ExpenseController {
             .populate({ path: 'category', model: 'ExpenseCategory', select: '_id name' })
             .exec((error, expenses) => {
                 if (error) {
-                    console.log(error);
+                    Logger.log(error);
                     return response.sendStatus(HttpStatus.BAD_REQUEST);
                 }
                 return response.status(HttpStatus.OK).json(expenses);
@@ -40,7 +41,7 @@ export default class ExpenseController {
     update(request, response) {
         Expense.findById(request.params.expenseId, (error, persisted) => {
             if (!persisted) {
-                console.log('Expense not found.');
+                Logger.log('Expense not found.');
                 return response.sendStatus(HttpStatus.BAD_REQUEST);
             }
             const fromBody = new Expense(request.body);
@@ -51,7 +52,7 @@ export default class ExpenseController {
 
             persistedEntity.save((errorWhileUpdating) => {
                 if (errorWhileUpdating) {
-                    console.log(errorWhileUpdating);
+                    Logger.log(errorWhileUpdating);
                     return response.sendStatus(HttpStatus.BAD_REQUEST);
                 }
                 return response.status(HttpStatus.OK).json(persistedEntity);
@@ -63,7 +64,7 @@ export default class ExpenseController {
     delete(request, response) {
         Expense.deleteOne({ _id: request.params.expenseId }, (error) => {
             if (error) {
-                console.log(error);
+                Logger.log(error);
                 return response.sendStatus(HttpStatus.BAD_REQUEST);
             }
             return response.sendStatus(HttpStatus.OK);

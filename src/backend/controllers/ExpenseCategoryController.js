@@ -1,65 +1,80 @@
-import HttpStatus from 'http-status-codes';
 import ExpenseCategory from "../models/ExpenseCategory";
+import BaseController from './BaseController';
+import Logger from "./../Logger";
 
-export default class ExpenseCategoryController {
+export default class ExpenseCategoryController extends BaseController {
+    constructor(props) {
+        super(props);
+        this.update = this.update.bind(this)
+    }
     create(request, response) {
-        const expenseCategory = new ExpenseCategory(request.body);
-        expenseCategory.save((error) => {
+        const model = new ExpenseCategory(request.body);
+        model.save((error) => {
             if (error) {
-                return response.status(HttpStatus.BAD_REQUEST).send('Unable to create expense category.');
+                return super.BAD_REQUEST(response, 'Unable to create expense category.');
             }
-            return response.status(HttpStatus.CREATED).json(expenseCategory);
+            return super.CREATED(response, model);
         });
     }
 
     getById(request, response) {
-        ExpenseCategory.findOne({ _id: request.params.categoryId }, (error, categories) => {
+        const criteria = { _id: request.params.categoryId };
+        ExpenseCategory.findOne(criteria, (error, categories) => {
             if (error) {
-                console.log(error);
-                return response.sendStatus(HttpStatus.BAD_REQUEST);
+                Logger.log(error);
+                return super.BAD_REQUEST(response);
             }
-            return response.status(HttpStatus.OK).json(categories);
+            return super.OK(response, categories);
         });
     }
 
     getAll(request, response) {
         ExpenseCategory.find({}, (error, categories) => {
             if (error) {
-                console.log(error);
-                return response.sendStatus(HttpStatus.BAD_REQUEST);
+                Logger.log(error);
+                return super.BAD_REQUEST(response);
             }
-            return response.status(HttpStatus.OK).json(categories);
+            return super.OK(response, categories);
         });
     }
 
     update(request, response) {
-        ExpenseCategory.findById(request.params.categoryId, (error, persisted) => {
-            const persistedEntity = persisted;
-            if (!persisted) {
-                console.log('Expense category not found.');
-                return response.sendStatus(HttpStatus.BAD_REQUEST);
+        const categoryId = request.params.categoryId;
+        ExpenseCategory.findById(categoryId, (error, persisted) => {
+            if (error) {
+                Logger.log(error);
+                return super.BAD_REQUEST(response);
             }
 
-            const fromBody = new ExpenseCategory(request.body);
-            persistedEntity.name = fromBody.name;
-            persistedEntity.save((errorWhileUpdating) => {
-                if (errorWhileUpdating) {
-                    console.log(errorWhileUpdating);
-                    return response.sendStatus(HttpStatus.BAD_REQUEST);
-                }
-                return response.status(HttpStatus.OK).json(persistedEntity);
-            });
-            return response.sendStatus(HttpStatus.OK);
+            if (!persisted) {
+                Logger.log('Expense category not found.');
+                return super.BAD_REQUEST(response);
+            }
+            const model = new ExpenseCategory(request.body);
+            return this.updateInternal(model, persisted, response);
+        });
+    }
+
+    updateInternal(model, persisted, response) {
+        const persistedModel = persisted;
+        persistedModel.name = model.name;
+        persistedModel.save((errorWhileUpdating) => {
+            if (errorWhileUpdating) {
+                Logger.log(errorWhileUpdating);
+                return super.BAD_REQUEST(response);
+            }
+            return super.OK(response, persistedModel);
         });
     }
 
     delete(request, response) {
-        ExpenseCategory.deleteOne({ _id: request.params.categoryId }, (error) => {
+        const criteria = { _id: request.params.categoryId };
+        ExpenseCategory.deleteOne(criteria, (error) => {
             if (error) {
-                console.log(error);
-                return response.sendStatus(HttpStatus.BAD_REQUEST);
+                Logger.log(error);
+                return super.BAD_REQUEST(response);
             }
-            return response.sendStatus(HttpStatus.OK);
+            return super.OK(response);
         });
     }
 }

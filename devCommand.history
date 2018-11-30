@@ -47,3 +47,4 @@ npm install webpack webpack-cli --save-dev
   touch .env.example
 
  npm install dotenv --save
+ npm install lodash.bind --save

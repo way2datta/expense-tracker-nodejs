@@ -1,4 +1,5 @@
 import express from 'express';
+import servicesRoutes from './routes/services';
 
 const app = express();
 
@@ -50,7 +51,7 @@ function setupDatabase() {
 }
 
 function setupApiRoutes() {
-    const servicesRoutes = require('./routes/services');
+
     app.use('/api/', servicesRoutes);
 }
 
