@@ -1,9 +1,10 @@
 import express from 'express';
 import servicesRoutes from './routes/services';
+import DatabaseInitializer from "./database/DatabaseInitializer";
 
 const app = express();
 
-setupDatabase();
+(new DatabaseInitializer()).initialize();
 setupBodyParser();
 setupApiRoutes();
 setupRestrictionForAccessingServerResources();
@@ -13,8 +14,9 @@ setupApiServerPortAndListen();
 
 
 function setupDefaultPage() {
-    const join = require('path');
-    app.get('/', (request, response) => {
+    const AnyUrl = '*';
+    const join = require('path').join;
+    app.get(AnyUrl, (request, response) => {
         response.sendFile(join(__dirname, './../frontend/index.html'));
     });
 }
@@ -42,16 +44,7 @@ function setupBodyParser() {
     app.use(bodyParser.urlencoded({ extended: true }));
 }
 
-function setupDatabase() {
-    const databaseConnectionString = require("./config").databaseConnectionString;
-    const mongoose = require('mongoose');
-    mongoose.Promise = global.Promise;
-    mongoose.set('debug', true);
-    mongoose.connect(databaseConnectionString);
-}
-
 function setupApiRoutes() {
-
     app.use('/api/', servicesRoutes);
 }
 

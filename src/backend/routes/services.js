@@ -7,8 +7,6 @@ import ExpenseController from '../controllers/expenseController';
 
 const router = Router();
 
-router.get('/', (request, response) => response.send('Hello World!'));
-
 const loginController = new LoginController();
 router.post('/login', loginController.execute);
 
