@@ -1,9 +1,39 @@
 import Logger from "./../Logger";
+import User from "../models/User";
+import BaseController from "./BaseController";
+import UserService from './../services/UserService';
 
-export default class UserController {
+export default class UserController extends BaseController{
+    constructor(props) {
+        super(props);
+        this.service = new UserService();
+        this.register = this.register.bind(this);
+    }
+    register(req, res, next) {
+        this.service.create(req.body)
+            .then((user) => res.json(user))
+            .catch(err => next(err));
+    }
+    
     create(request, response) {
         Logger.log('User creation logic...');
-        return response.send('User created successfully.');
+      
+        User.findOne({ username: request.body.username })
+            .exec(function(error,user){
+                if(user){
+                    throw 'Username "' + request.body.username + '" is already taken';
+                }
+            });
+
+        const user = new User(request.body);
+
+        if (request.body.password) {
+            const bcrypt = require('bcryptjs');
+            user.hash = bcrypt.hashSync(request.body.password, 10);
+        }
+        user.save();
+        delete user.hash;
+        return super.OK(response, user);
     }
 
     getById(request, response) {

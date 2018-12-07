@@ -14,7 +14,7 @@ const authController = new AuthController();
 router.post('/authorize', authController.execute);
 
 const userController = new UserController();
-router.post('/register', userController.create);
+router.post('/register', userController.register);
 router.get('/users', userController.getAll);
 router.get('/users/:id', userController.getById);
 router.delete('/users/:id', userController.delete);

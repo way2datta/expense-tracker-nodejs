@@ -48,3 +48,7 @@ npm install webpack webpack-cli --save-dev
 
  npm install dotenv --save
  npm install lodash.bind --save
+ npm install bcryptjs --save
+
+-- async and await
+ npm install --save @babel/polyfill

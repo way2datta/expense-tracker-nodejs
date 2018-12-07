@@ -1,6 +1,7 @@
 import express from 'express';
 import servicesRoutes from './routes/services';
 import DatabaseInitializer from "./database/DatabaseInitializer";
+const errorHandler = require('./ErrorHandler');
 
 const app = express();
 
@@ -11,7 +12,7 @@ setupRestrictionForAccessingServerResources();
 setupMiddlewareThatServesStaticFiles();
 setupDefaultPage();
 setupApiServerPortAndListen();
-
+app.use(errorHandler);
 
 function setupDefaultPage() {
     const AnyUrl = '*';
