@@ -1,81 +1,46 @@
-import ExpenseCategory from "../models/ExpenseCategory";
 import BaseController from './BaseController';
-import Logger from "./../Logger";
+import ExpenseCategoryService from './../services/ExpenseCategoryService';
 
-export default class ExpenseCategoryController extends BaseController {
+export default class ExpenseCategoryController extends BaseController{
     constructor(props) {
         super(props);
-        this.update = this.update.bind(this)
+        this.service = new ExpenseCategoryService();
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
-    create(request, response) {
-        const model = new ExpenseCategory(request.body);
-        model.save((error) => {
-            if (error) {
-                super.BAD_REQUEST(response, 'Unable to create expense category.');
-            }
-            super.CREATED(response, model);
-        });
+    create(request, response, next) {
+        this.service.create(request.body)
+            .then((category) => super.CREATED(response, category))
+            .catch(error => next(error));
     }
 
-    getById(request, response) {
-        const criteria = { _id: request.params.categoryId };
-        ExpenseCategory.findOne(criteria, (error, categories) => {
-            if (error) {
-                Logger.log(error);
-                super.BAD_REQUEST(response);
-            }
-            super.OK(response, categories);
-        });
+    getById(request, response,next) {
+        this.service.getById(request.params.categoryId)
+            .then(category => category ? super.OK(response, category) : super.BAD_REQUEST(response))
+            .catch(error => next(error));
     }
 
-    getAll(request, response) {
-        ExpenseCategory.find({}, (error, categories) => {
-            if (error) {
-                Logger.log(error);
-                super.BAD_REQUEST(response);
-            }
-            super.OK(response, categories);
-        });
+    getAll(request, response, next) {
+        this.service.getAll()
+            .then(category => super.OK(response, category))
+            .catch(error => next(error));
     }
 
-    update(request, response) {
-        const categoryId = request.params.categoryId;
-        ExpenseCategory.findById(categoryId, (error, persisted) => {
-            if (error) {
-                Logger.log(error);
-                super.BAD_REQUEST(response);
-            }
-
-            if (!persisted) {
-                Logger.log('Expense category not found.');
-                super.BAD_REQUEST(response);
-            }
-            const model = new ExpenseCategory(request.body);
-            this.updateInternal(model, persisted, response);
-        });
+    update(request, response, next) {
+        this.service.update(request.params.categoryId, request.body)
+            .then((category) => super.OK(response, category))
+            .catch(err => next(err));
     }
 
-    updateInternal(model, persisted, response) {
-        const persistedModel = persisted;
-        persistedModel.name = model.name;
-        persistedModel.save((errorWhileUpdating) => {
-            if (errorWhileUpdating) {
-                Logger.log(errorWhileUpdating);
-                return super.BAD_REQUEST(response);
-            }
-            return super.OK(response, persistedModel);
-        });
-    }
-
-    delete(request, response) {
-        const criteria = { _id: request.params.categoryId };
-        ExpenseCategory.deleteOne(criteria, (error) => {
-            if (error) {
-                Logger.log(error);
-                super.BAD_REQUEST(response);
-            }
-            super.OK(response);
-        });
+    delete(request, response, next) {
+        this.service.delete(request.params.categoryId)
+            .then(() => super.OK(response))
+            .catch(error => next(error));
     }
 }
+
+    
