@@ -1,15 +1,12 @@
 import BaseController from './BaseController';
 import ExpenseCategoryService from './../services/ExpenseCategoryService';
+var _ = require('lodash');
 
 export default class ExpenseCategoryController extends BaseController{
     constructor(props) {
         super(props);
         this.service = new ExpenseCategoryService();
-        this.create = this.create.bind(this);
-        this.update = this.update.bind(this);
-        this.getAll = this.getAll.bind(this);
-        this.getById = this.getById.bind(this);
-        this.delete = this.delete.bind(this);
+        _.bindAll(this, ['create', 'update', 'getAll', 'getById', 'delete']);
     }
 
     create(request, response, next) {
