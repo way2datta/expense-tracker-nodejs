@@ -16,10 +16,9 @@ router.post('/authorize', authController.execute);
 const userController = new UserController();
 router.post('/register', userController.register);
 router.get('/users', userController.getAll);
-router.get('/users/:id', userController.getById);
-router.delete('/users/:id', userController.delete);
-router.put('/users/:id', userController.update);
-router.post('/users', userController.create);
+router.get('/users/:userId', userController.getById);
+router.delete('/users/:userId', userController.delete);
+router.put('/users/:userId', userController.update);
 
 const expenseCategoryController = new ExpenseCategoryController();
 router.get('/users/:id/expenses/categories', expenseCategoryController.getAll);

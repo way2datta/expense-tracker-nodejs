@@ -34,7 +34,7 @@ export default class ExpenseController  extends BaseController{
     }
 
     delete(request, response, next) {
-        this.service.delete(request.params.categoryId)
+        this.service.delete(request.params.expenseId)
             .then(() => super.OK(response))
             .catch(error => next(error));
     }
