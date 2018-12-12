@@ -18,7 +18,8 @@ function setupDefaultPage() {
     const AnyUrl = '*';
     const join = require('path').join;
     app.get(AnyUrl, (request, response) => {
-        response.sendFile(join(__dirname, './../frontend/index.html'));
+        // response.sendFile(join(__dirname, './index.html'));
+         response.sendFile('./index.html');
     });
 }
 

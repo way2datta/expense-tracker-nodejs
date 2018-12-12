@@ -52,3 +52,5 @@ npm install webpack webpack-cli --save-dev
 
 -- async and await
  npm install --save @babel/polyfill
+
+ npm install --save-dev html-webpack-plugin
