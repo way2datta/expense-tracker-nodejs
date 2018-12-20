@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import GridModel from '../GridModel';
 
@@ -23,11 +24,14 @@ export default class ExpenseCategoryListModel extends React.Component {
         const attributes = ['name'];
 
         return (
-            <GridModel
-                headers={headers}
-                attributes={attributes}
-                datasource={this.state.categories}
-            />
+            <div>
+                <Link to="/expenses/categories/new" className="btn btn-primary">New</Link>
+                <GridModel
+                    headers={headers}
+                    attributes={attributes}
+                    datasource={this.state.categories}
+                />
+            </div>
         );
     }
 }
