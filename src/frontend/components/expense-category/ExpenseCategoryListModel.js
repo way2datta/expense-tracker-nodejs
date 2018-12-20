@@ -1,22 +1,21 @@
 import React from 'react';
-import axios from 'axios';
-import GridModel from './GridModel';
+import ExpenseCategoryModel from "./ExpenseCategoryModel";
+import GridModel from '../GridModel';
 
-export default class ExpenseCategory extends React.Component {
+export default class ExpenseCategoryListModel extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             categories: [],
+            model: new ExpenseCategoryModel()
         };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/api/users/1/expenses/categories/')
-            .then((response) => {
-                const categories = response.data;
-                this.setState({ categories });
-            });
+        this.state.model.getAll((categories) => {
+            this.setState({ categories });
+        });
     }
 
     render() {
