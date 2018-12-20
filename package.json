@@ -9,7 +9,7 @@
     "client-prod": "webpack --mode production --config webpack.config.prod.js",
     "build": "npm run clean && mkdir dist && npm run client-dev && babel src/backend/server.js -s -d dist",
     "build-prod": "npm run clean && mkdir dist && npm run client-prod && babel src/backend/server.js -s -d dist",
-    "start": "npm run start-prod",
+    "start": "npm run start-dev",
     "start-dev": "npm run build && node ./bin/dev",
     "start-prod": "npm run build  && node ./bin/prod",
     "lint-server": "./node_modules/.bin/eslint src/backend",
