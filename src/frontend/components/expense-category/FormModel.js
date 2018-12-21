@@ -1,29 +1,40 @@
 import React from 'react';
+import ExpenseCategoryModel from "./ExpenseCategoryModel";
 
 export default class ExpenseCagegoryFormModel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        this.state = {
+            model: new ExpenseCategoryModel()
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
+        const model = this.state.model;
+        model.name = event.target.value;
+        this.setState({ model });
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
         event.preventDefault();
+        const that = this;
+        this.state.model.create(() => {
+            that.props.history.push('/expenses/categories');
+        });
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>
-                    Name:
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
+                <div className="form-group row">
+                    <label labelFor="Name" className="col-sm-2 col-form-label">Name:</label>
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control" id="Name" placeholder="Name"
+                            value={this.state.model.name} onChange={this.handleChange} />
+                    </div>
+                </div>
                 <input type="submit" value="Submit" />
             </form>
         );

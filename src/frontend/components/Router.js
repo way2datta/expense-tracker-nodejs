@@ -6,7 +6,7 @@ import ExpenseCategoryListModel from './expense-category/ExpenseCategoryListMode
 import ExpenseCagegoryFormModel from './expense-category/FormModel';
 
 const Content = () => (
-    <div className="container">
+    <div className="container body-content">
         <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />

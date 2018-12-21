@@ -7,7 +7,7 @@ export default class ExpenseCategoryService {
         return category;
     }
     async getAll() {
-        return await ExpenseCategory.find();
+        return await ExpenseCategory.find().sort({'_id': -1  });
     }
     
     async getById(id) {
