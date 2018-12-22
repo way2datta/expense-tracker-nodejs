@@ -60,7 +60,7 @@ export default class GridModel extends React.Component {
 
     render() {
         if (this.props.datasource.length) {
-            this.renderDatasource();
+            return this.renderDatasource();
         }
 
         return <h3 className="margin-top-30">No records found</h3>;

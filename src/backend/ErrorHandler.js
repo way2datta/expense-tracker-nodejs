@@ -1,5 +1,3 @@
-const { handleValidationError } = require("./handleValidationError");
-
 module.exports = errorHandler;
 
 function errorHandler(error, request, response, next) {
@@ -9,7 +7,6 @@ function errorHandler(error, request, response, next) {
     }
 
     if (error.name === 'ValidationError') {
-        handleValidationError(error);
         // mongoose validation error
         return response.status(400).json({ message: error.message });
     }
