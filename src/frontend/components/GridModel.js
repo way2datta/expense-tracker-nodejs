@@ -6,15 +6,14 @@ const _ = require('lodash');
 export default class GridModel extends React.Component {
     constructor(props) {
         super(props);
-        this.renderHeaders = this.renderHeaders.bind(this);
-        this.renderContent = this.renderContent.bind(this);
+        _.bindAll(this, ['renderHeaders', 'renderContent']);
     }
 
     renderHeaders() {
         return (
             <tr key="column-header">
                 {(() => {
-                    const headers = _.map(this.props.headers, (header, index) => 
+                    const headers = _.map(this.props.headers, (header, index) =>
                         (<th key={`th_${index}`}>{header}</th>));
                     return headers;
                 })()}
@@ -47,7 +46,7 @@ export default class GridModel extends React.Component {
         }));
     }
 
-    render() {
+    renderDatasource() {
         return (
             <table className="table">
                 <thead className="headers">
@@ -56,9 +55,18 @@ export default class GridModel extends React.Component {
                 <tbody className="content">
                     {this.renderContent()}
                 </tbody>
-            </table>
-        );
+            </table>);
     }
+
+    render() {
+        if (this.props.datasource.length) {
+            this.renderDatasource();
+        }
+
+        return <h3 className="margin-top-30">No records found</h3>;
+    }
+
+
 }
 
 GridModel.propTypes = {
