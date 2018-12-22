@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 const categorySchema = mongoose.Schema({
     name: {
         type:String,
-        required: [true, 'NAME_IS_REQUIRED'],
+        required: true,
         unique: true
     }
 });
-
+categorySchema.plugin(uniqueValidator);
 module.exports = mongoose.model('ExpenseCategory', categorySchema);

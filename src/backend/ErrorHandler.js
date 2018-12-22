@@ -1,3 +1,4 @@
+import { handleValidationError } from "./handleValidationError";
 module.exports = errorHandler;
 
 function errorHandler(error, request, response, next) {
@@ -8,7 +9,8 @@ function errorHandler(error, request, response, next) {
 
     if (error.name === 'ValidationError') {
         // mongoose validation error
-        return response.status(400).json({ message: error.message });
+        handleValidationError(error);
+        return response.status(400).json({ validation_error_message: error.message });
     }
 
     if (error.name === 'UnauthorizedError') {
@@ -19,3 +21,5 @@ function errorHandler(error, request, response, next) {
     // default to 500 server error
     return response.status(400).json({ message: error.message });
 }
+
+
