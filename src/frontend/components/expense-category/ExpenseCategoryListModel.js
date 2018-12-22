@@ -25,7 +25,9 @@ export default class ExpenseCategoryListModel extends React.Component {
 
         return (
             <div>
-                <Link to="/expenses/categories/new" className="btn btn-primary">New</Link>
+                <div className="margin-top-10 margin-bottom-20">
+                    <Link to="/expenses/categories/new" className="btn btn-primary">New</Link>
+                </div>
                 <GridModel
                     headers={headers}
                     attributes={attributes}

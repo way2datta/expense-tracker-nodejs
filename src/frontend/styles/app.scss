@@ -1,5 +1,13 @@
-$defaultBackgrondColor: #b0199e;
+@import "~bootstrap/scss/bootstrap";
+@import "./table";
+@import "./variables";
+@import "./spacing-helpers";
 
 body {
   background-color: $defaultBackgrondColor;
+}
+.body-content{
+  background-color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

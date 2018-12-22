@@ -1,0 +1,35 @@
+
+$spaceAmounts: (0, 10, 15, 20); // Adjust this to include the pixel amounts you need.
+$sides: (top, bottom, left, right); // Leave this variable alone
+
+@each $space in $spaceAmounts {
+  @each $side in $sides {
+    .margin-#{$side}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
+    }
+
+    .padding-#{$side}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
+    }
+  }
+}
+
+$marginSpaceAmountsFromAllSides: (0, 1);
+
+@each $space in $marginSpaceAmountsFromAllSides {
+  @each $side in $sides {
+    .margin-#{$space} {
+      margin: #{$space}px !important;
+    }
+  }
+}
+
+$paddingSpaceAmountsFromAllSides: (0, 1);
+
+@each $space in $paddingSpaceAmountsFromAllSides {
+  @each $side in $sides {
+    .padding-#{$space} {
+      padding: #{$space}px !important;
+    }
+  }
+}
