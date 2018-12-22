@@ -25,6 +25,7 @@ export default class ExpenseCategoryListModel extends React.Component {
 
         return (
             <div>
+                <h3 className="heading">Expenses Categories</h3>
                 <div className="margin-top-10 margin-bottom-20">
                     <Link to="/expenses/categories/new" className="btn btn-primary">New</Link>
                 </div>

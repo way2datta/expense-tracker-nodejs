@@ -27,16 +27,19 @@ export default class ExpenseCagegoryFormModel extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group row">
-                    <label labelFor="Name" className="col-sm-2 col-form-label">Name:</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="Name" placeholder="Name"
-                            value={this.state.model.name} onChange={this.handleChange} />
+            <div>
+                <h3 className="heading">Create Category</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="form-group row">
+                        <label labelFor="Name" className="col-sm-2 col-form-label">Name:</label>
+                        <div className="col-sm-4">
+                            <input type="text" className="form-control" id="Name" placeholder="Name"
+                                value={this.state.model.name} onChange={this.handleChange} />
+                        </div>
                     </div>
-                </div>
-                <input type="submit" value="Submit" />
-            </form>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
         );
     }
 }

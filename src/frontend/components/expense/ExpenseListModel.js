@@ -23,11 +23,14 @@ export default class ExpenseListModel extends React.Component {
         const attributes = ['description', 'amount', 'incurredAt'];
 
         return (
-            <GridModel
-                headers={headers}
-                attributes={attributes}
-                datasource={this.state.expenses}
-            />
+            <div>
+                <h3 className="heading">Expenses</h3>
+                <GridModel
+                    headers={headers}
+                    attributes={attributes}
+                    datasource={this.state.expenses}
+                />
+            </div>
         );
     }
 }
