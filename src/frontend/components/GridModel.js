@@ -29,8 +29,8 @@ export default class GridModel extends React.Component {
                 <tr key={`key_${counter}`}>
                     {(
                         () => {
-                            const columns = _.map(this.props.attributes, (attribute, index) => {
-                                const value = model[attribute];
+                            const columns = _.map(this.props.attributes, (propertyName, index) => {
+                                const value = this.getPropertyValue(model, propertyName);
                                 return (
                                     <td key={index}>
                                         {' '}
@@ -44,6 +44,14 @@ export default class GridModel extends React.Component {
                 </tr>
             );
         }));
+    }
+
+    getPropertyValue(model, propertyName) {
+        if (propertyName.indexOf(".") > -1) {
+            const props = propertyName.split(".");
+            return model[props[0]][props[1]];
+        }
+        return model[propertyName];
     }
 
     renderDatasource() {

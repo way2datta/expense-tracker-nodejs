@@ -6,5 +6,8 @@ export default class DatabaseInitializer {
         mongoose.Promise = global.Promise;
         mongoose.set('debug', true);
         mongoose.connect(databaseConnectionString);
+        
+        const seedCategories = require('./Seeder');
+        seedCategories();
     }
 }

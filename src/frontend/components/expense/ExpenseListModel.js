@@ -19,8 +19,8 @@ export default class ExpenseListModel extends React.Component {
     }
 
     render() {
-        const headers = ['Description', 'Amount', 'Incurred At'];
-        const attributes = ['description', 'amount', 'incurredAt'];
+        const headers = ['Description', 'Amount', 'Incurred At','Category'];
+        const attributes = ['description', 'amount', 'incurredAt','category.name'];
 
         return (
             <div>
