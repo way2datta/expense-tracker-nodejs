@@ -27,22 +27,23 @@ function seedCategories() {
         var newCategory = new ExpenseCategory(category);
         newCategory.save();
 
-        seedExpenses(newCategory._id);
+        seedExpenses(newCategory);
     }
 
     console.log('Database seeded!');
 }
 
 
-function seedExpenses(categoyId) {
+function seedExpenses(categoy) {
     const numberOfExpensesToCreate = random(1, 5);
 
     for (let i = 0; i <= numberOfExpensesToCreate; i++) {
+        const description = "Expense incurred on "+categoy.name;
         const expense = {
             "amount": random(500, 5500),
-            "description": "DMargt Grocery",
+            "description": description,
             "incurredAt": getRandomDate(),
-            "category": categoyId
+            "category": categoy._id
         };
         var newExpense = new Expense(expense);
         newExpense.save();

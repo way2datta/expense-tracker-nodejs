@@ -49,7 +49,9 @@ export default class GridModel extends React.Component {
     getPropertyValue(model, propertyName) {
         if (propertyName.indexOf(".") > -1) {
             const props = propertyName.split(".");
-            return model[props[0]][props[1]];
+            const parentEntity = props[0];
+            const parentPropertyName = props[1];
+            return model[parentEntity][parentPropertyName];
         }
         return model[propertyName];
     }
