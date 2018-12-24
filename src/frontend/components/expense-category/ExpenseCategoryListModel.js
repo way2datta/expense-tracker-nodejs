@@ -17,8 +17,12 @@ export default class ExpenseCategoryListModel extends React.Component {
     }
 
     renderGridActions(model) {
-        return <a className="btn btn-danger text-light btn-sm"
-            onClick={e => this.delete(e, model)}>Delete</a>
+        return <div className="text-right">
+            <a className="btn btn-primary text-light btn-sm margin-right-20"
+                onClick={e => this.edit(e, model)}>Edit</a>
+            <a className="btn btn-danger text-light btn-sm"
+                onClick={e => this.delete(e, model)}>Delete</a>
+        </div>
     }
 
     componentDidMount() {
@@ -32,8 +36,12 @@ export default class ExpenseCategoryListModel extends React.Component {
             var filtered = this.state.categories.filter(function (category) {
                 return category._id != categoryModel.id;
             });
-            that.setState({categories: filtered});
+            that.setState({ categories: filtered });
         });
+    }
+
+    edit(event, model) {
+        this.props.history.push('/expenses/categories/edit/' + model._id);
     }
 
     getAll() {
@@ -44,9 +52,9 @@ export default class ExpenseCategoryListModel extends React.Component {
 
     render() {
         const headers = ['Name', ''];
-        const headerCssClasses = ['col-md-9','col-md-3'];
+        const headerCssClasses = ['', ''];
         const attributes = ['name', this.renderGridActions];
-
+        const columnCssClasses = ['', ''];
         return (
             <div>
                 <h3 className="heading">Expenses Categories</h3>
@@ -60,6 +68,7 @@ export default class ExpenseCategoryListModel extends React.Component {
                             datasource={this.state.categories}
                             headers={headers}
                             headerCssClasses={headerCssClasses}
+                            columnCssClasses={columnCssClasses}
                         />
                     </div>
                 </div>
