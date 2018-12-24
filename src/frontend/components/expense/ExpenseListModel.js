@@ -1,7 +1,8 @@
 import React from 'react';
 import GridModel from '../GridModel';
 import ExpenseModel from "./ExpenseModel";
-const _ = require('lodash');
+import { formatDate } from './../../helpers/formatDate';
+import { formatMoney } from './../../helpers/formatMoney';
 
 export default class ExpenseListModel extends React.Component {
     constructor(props) {
@@ -11,7 +12,6 @@ export default class ExpenseListModel extends React.Component {
             expenses: [],
             model: new ExpenseModel()
         };
-        _.bindAll(this, ['formatAmount', 'formatDate', 'formatIncurredDate']);
     }
 
     componentDidMount() {
@@ -19,39 +19,13 @@ export default class ExpenseListModel extends React.Component {
             this.setState({ expenses });
         });
     }
-
-    formatMoney(money) {
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 2
-        })
-          
-        return formatter.format(money);
-    }
-
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        var monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-        ];
-      
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-      
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
-    }
       
     formatIncurredDate(model) {
-        return this.formatDate(model.incurredAt);
+        return formatDate(model.incurredAt);
     }
 
     formatAmount(model) {
-        return this.formatMoney(model.amount)
+        return formatMoney(model.amount)
     }
 
     render() {
