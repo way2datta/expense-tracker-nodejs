@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import GridModel from '../GridModel';
+const _ = require('lodash');
 
 export default class ExpenseCategoryListModel extends React.Component {
     constructor(props) {
@@ -11,17 +12,40 @@ export default class ExpenseCategoryListModel extends React.Component {
             categories: [],
             model: new ExpenseCategoryModel()
         };
+
+        _.bindAll(this, ['renderGridActions', 'getAll', 'delete']);
+    }
+
+    renderGridActions(model) {
+        return <a className="btn btn-danger text-light btn-sm"
+            onClick={e => this.delete(e, model)}>Delete</a>
     }
 
     componentDidMount() {
+        this.getAll();
+    }
+
+    delete(event, model) {
+        const categoryModel = ExpenseCategoryModel.clone(model);
+        const that = this;
+        categoryModel.delete(() => {
+            var filtered = this.state.categories.filter(function (category) {
+                return category._id != categoryModel.id;
+            });
+            that.setState({categories: filtered});
+        });
+    }
+
+    getAll() {
         this.state.model.getAll((categories) => {
             this.setState({ categories });
         });
     }
 
     render() {
-        const headers = ['Name'];
-        const attributes = ['name'];
+        const headers = ['Name', ''];
+        const headerCssClasses = ['col-md-9','col-md-3'];
+        const attributes = ['name', this.renderGridActions];
 
         return (
             <div>
@@ -29,11 +53,16 @@ export default class ExpenseCategoryListModel extends React.Component {
                 <div className="margin-top-10 margin-bottom-20">
                     <Link to="/expenses/categories/new" className="btn btn-primary">New</Link>
                 </div>
-                <GridModel
-                    headers={headers}
-                    attributes={attributes}
-                    datasource={this.state.categories}
-                />
+                <div className="row">
+                    <div className="col-md-8">
+                        <GridModel
+                            attributes={attributes}
+                            datasource={this.state.categories}
+                            headers={headers}
+                            headerCssClasses={headerCssClasses}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

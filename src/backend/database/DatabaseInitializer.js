@@ -7,7 +7,11 @@ export default class DatabaseInitializer {
         mongoose.set('debug', true);
         mongoose.connect(databaseConnectionString);
         
-        const seedCategories = require('./Seeder');
-        seedCategories();
+        const shouldSeedDatabase = process.env.SEED_DATABASE === "true";
+
+        if(shouldSeedDatabase) {
+            const seedCategories = require('./Seeder');
+            seedCategories();
+        }
     }
 }

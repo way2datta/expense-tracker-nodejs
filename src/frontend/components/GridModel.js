@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 const _ = require('lodash');
 
 export default class GridModel extends React.Component {
@@ -14,11 +13,22 @@ export default class GridModel extends React.Component {
             <tr key="column-header">
                 {(() => {
                     const headers = _.map(this.props.headers, (header, index) =>
-                        (<th key={`th_${index}`}>{header}</th>));
-                    return headers;
+                        (<th key={`th_${index}`} className={this.getHeaderCssClass(index)}>{header}</th>));
+
+                    const actionHeaders = _.map(this.props.actionHeaders,
+                        actionHeader => actionHeader());
+                    return headers.concat(actionHeaders);
                 })()}
             </tr>
         );
+    }
+
+    getHeaderCssClass(index) {
+        return this.props.headerCssClasses !== undefined ? this.props.headerCssClasses[index] : '';
+    }
+
+    getColumnCssClass(index) {
+        return this.props.columnCssClasses !== undefined ? this.props.columnCssClasses[index] : '';
     }
 
     renderContent() {
@@ -32,14 +42,15 @@ export default class GridModel extends React.Component {
                             const columns = _.map(this.props.attributes, (propertyName, index) => {
                                 const value = this.getPropertyValue(model, propertyName);
                                 return (
-                                    <td key={index}>
+                                    <td key={index} className={this.getColumnCssClass(index)}>
                                         {' '}
                                         {value}
                                         {' '}
                                     </td>
                                 );
                             });
-                            return columns;
+                            const actions = _.map(this.props.actions, action => action(model));
+                            return columns.concat(actions);
                         })()}
                 </tr>
             );
@@ -47,6 +58,10 @@ export default class GridModel extends React.Component {
     }
 
     getPropertyValue(model, propertyName) {
+        if (typeof propertyName === 'function') {
+            return propertyName(model);
+        }
+
         if (propertyName.indexOf(".") > -1) {
             const props = propertyName.split(".");
             const parentEntity = props[0];
@@ -80,7 +95,11 @@ export default class GridModel extends React.Component {
 }
 
 GridModel.propTypes = {
-    attributes: PropTypes.arrayOf(PropTypes.string),
+    attributes: PropTypes.array,
+    columnCssClasses: PropTypes.array,
     headers: PropTypes.arrayOf(PropTypes.string),
-    datasource: PropTypes.array
+    datasource: PropTypes.array,
+    actionHeaders: PropTypes.array,
+    actions: PropTypes.array,
+    headerCssClasses: PropTypes.array
 };
