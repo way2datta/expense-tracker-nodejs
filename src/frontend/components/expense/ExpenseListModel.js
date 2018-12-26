@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import GridModel from '../GridModel';
 import ExpenseModel from "./ExpenseModel";
 import { formatDate } from './../../helpers/formatDate';
@@ -20,6 +21,17 @@ export default class ExpenseListModel extends React.Component {
         });
     }
       
+    delete(event, model) {
+        const categoryModel = ExpenseModel.clone(model);
+        const that = this;
+        categoryModel.delete(() => {
+            var filtered = this.state.categories.filter(function (category) {
+                return category._id != categoryModel.id;
+            });
+            that.setState({ categories: filtered });
+        });
+    }
+    
     formatIncurredDate(model) {
         return formatDate(model.incurredAt);
     }

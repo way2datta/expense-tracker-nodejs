@@ -5,12 +5,14 @@ import ExpenseListModel from './expense/ExpenseListModel';
 import ExpenseCategoryListModel from './expense-category/ExpenseCategoryListModel';
 import EditExpenseCagegoryFormModel from './expense-category/EditFormModel';
 import CreateExpenseCagegoryFormModel from './expense-category/CreateFormModel';
+import CreateExpenseFormModel from "./expense/CreateFormModel";
 
 const Content = () => (
     <div className="container body-content">
         <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/expenses/new" component={CreateExpenseFormModel} />
             <Route path="/expenses/categories/new" component={CreateExpenseCagegoryFormModel} />
             <Route path="/expenses/categories/edit/:id" component={EditExpenseCagegoryFormModel} />
             <Route path="/expenses/categories" component={ExpenseCategoryListModel} />
