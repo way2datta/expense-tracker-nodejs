@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
-import GridModel from '../GridModel';
+import Grid from '../Grid';
 const _ = require('lodash');
 
-export default class ExpenseCategoryListModel extends React.Component {
+export default class ExpenseCategoryList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -63,7 +63,7 @@ export default class ExpenseCategoryListModel extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-8">
-                        <GridModel
+                        <Grid
                             attributes={attributes}
                             datasource={this.state.categories}
                             headers={headers}

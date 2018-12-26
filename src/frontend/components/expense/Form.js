@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ExpenseFormModel extends React.Component {
+export default class ExpenseForm extends React.Component {
     render() {
         return (
             <div>
@@ -46,7 +46,7 @@ export default class ExpenseFormModel extends React.Component {
     }
 }
 
-ExpenseFormModel.propTypes = {
+ExpenseForm.propTypes = {
     heading: PropTypes.string,
     handleSubmit: PropTypes.func,
     model: PropTypes.object,

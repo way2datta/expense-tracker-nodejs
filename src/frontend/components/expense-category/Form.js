@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ExpenseCagegoryFormModel extends React.Component {
+export default class ExpenseCagegoryForm extends React.Component {
     render() {
         return (
             <div>
@@ -21,7 +21,7 @@ export default class ExpenseCagegoryFormModel extends React.Component {
     }
 }
 
-ExpenseCagegoryFormModel.propTypes = {
+ExpenseCagegoryForm.propTypes = {
     heading: PropTypes.string,
     handleSubmit: PropTypes.func,
     model: PropTypes.object,

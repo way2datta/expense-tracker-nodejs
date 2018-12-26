@@ -1,7 +1,6 @@
 import React from 'react';
 import ExpenseModel from "./ExpenseModel";
-import FormModel from "./FormModel";
-
+import Form from "./Form";
 const _ = require('lodash');
 
 export default class CreateExpenseFormModel extends React.Component {
@@ -30,7 +29,7 @@ export default class CreateExpenseFormModel extends React.Component {
     render() {
         return (
             <div>
-                <FormModel handleChange={this.handleChange}
+                <Form handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     model={this.state.model}
                     heading="Create Expense"

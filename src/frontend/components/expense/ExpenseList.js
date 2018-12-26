@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import GridModel from '../GridModel';
+import Grid from '../Grid';
 import ExpenseModel from "./ExpenseModel";
-import { formatDate } from './../../helpers/formatDate';
-import { formatMoney } from './../../helpers/formatMoney';
+import { formatDate } from '../../helpers/formatDate';
+import { formatMoney } from '../../helpers/formatMoney';
 
-export default class ExpenseListModel extends React.Component {
+export default class ExpenseList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,7 +49,7 @@ export default class ExpenseListModel extends React.Component {
         return (
             <div>
                 <h3 className="heading">Expenses</h3>
-                <GridModel
+                <Grid
                     attributes={attributes}
                     datasource={this.state.expenses}
                     headers={headers}

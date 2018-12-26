@@ -1,23 +1,15 @@
 import React from 'react';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
-import FormModel from "./FormModel";
+import FormModel from "./Form";
 const _ = require('lodash');
 
-export default class EditExpenseCagegoryFormModel extends React.Component {
+export default class CreateExpenseCagegoryForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             model: new ExpenseCategoryModel()
         };
         _.bindAll(this, ['handleChange', 'handleSubmit']);
-    }
-
-    componentDidMount() {
-        const categoryModel = ExpenseCategoryModel.clone({ _id: this.props.match.params.id });
-        const that = this;
-        categoryModel.getById((model) => {
-            that.setState({ model });
-        });
     }
 
     handleChange(event) {
@@ -29,7 +21,7 @@ export default class EditExpenseCagegoryFormModel extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const that = this;
-        this.state.model.update(() => {
+        this.state.model.create(() => {
             that.props.history.push('/expenses/categories');
         });
     }
@@ -40,7 +32,7 @@ export default class EditExpenseCagegoryFormModel extends React.Component {
                 <FormModel handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     model={this.state.model}
-                    heading="Edit Category"
+                    heading="Create Category"
                 />
             </div>
         );
