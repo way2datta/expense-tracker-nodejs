@@ -6,6 +6,7 @@ import ExpenseCategoryList from './expense-category/ExpenseCategoryList';
 import EditExpenseCagegoryForm from './expense-category/EditForm';
 import CreateExpenseCagegoryForm from './expense-category/CreateForm';
 import CreateExpenseForm from "./expense/CreateForm";
+import ExpenseReportSummary from "./expense-report/ExpenseReportSummary";
 
 const Content = () => (
     <div className="container body-content">
@@ -13,6 +14,7 @@ const Content = () => (
             <Route exact path="/" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/expenses/new" component={CreateExpenseForm} />
+            <Route path="/expenses/reports/summary" component={ExpenseReportSummary} />
             <Route path="/expenses/categories/new" component={CreateExpenseCagegoryForm} />
             <Route path="/expenses/categories/edit/:id" component={EditExpenseCagegoryForm} />
             <Route path="/expenses/categories" component={ExpenseCategoryList} />

@@ -58,3 +58,4 @@ npm install webpack webpack-cli --save-dev
  npm install sass-loader node-sass --save-dev
  npm install bootstrap
  npm install --save mongoose-unique-validator
+ npm install --save  recharts

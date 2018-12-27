@@ -19,7 +19,7 @@ export default class Dashboard extends React.Component {
                     </div>
                     <div className="col-sm-12">
                         <div className="card bg-yellow">
-                            <Link to="/expenses/report" className="nav-link">Expenses report</Link>
+                            <Link to="/expenses/reports/summary" className="nav-link">Expenses report</Link>
                         </div>
                     </div>
                 </div>
