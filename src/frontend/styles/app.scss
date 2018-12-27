@@ -16,3 +16,37 @@ h3.heading {
     padding-bottom: 9px;
     border-bottom: 1px solid #eee;
 }
+.card {
+  height: 200px;
+  display: inline-table;
+  width: 100%;
+  margin-top: 25px;
+}
+
+  .card a {
+      height: 200px;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      font-size: xx-large;
+  }
+  .card a:hover {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+  }
+
+.bg-aqua {
+  background-color: #00c0ef !important;
+}
+
+.bg-green{
+  background-color: #00a65a !important;
+}
+
+.bg-yellow {
+  background-color: #f39c12 !important;
+}

@@ -17,6 +17,11 @@ export default class Dashboard extends React.Component {
                             <Link to="/expenses/categories" className="nav-link">Expenses categories</Link>
                         </div>
                     </div>
+                    <div className="col-sm-12">
+                        <div className="card bg-yellow">
+                            <Link to="/expenses/report" className="nav-link">Expenses report</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
