@@ -52,4 +52,16 @@ h3.heading {
 }
 .recharts-responsive-container{
   margin: 0 auto;
+  height: 50% !important;
+}
+.month-selector{
+  float: right;
+  a{
+    color: #000;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  span{
+    margin: 0 20px;
+  }
 }

@@ -17,7 +17,6 @@ export default class ExpenseReportModel {
             const categoryWiseSum = _.sumBy(grouped[categoryName], 'amount');
             datasource.push({ categoryName, totalAmount: categoryWiseSum}); 
         }
-        console.log(datasource);
         return datasource;
     }
 }
