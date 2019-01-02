@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
+import AppComponent from "./../utility/AppComponent";
 import Grid from '../Grid';
+import OperationType from "./../utility/OperationType";
 const _ = require('lodash');
 
-export default class ExpenseCategoryList extends React.Component {
+export default class ExpenseCategoryList extends AppComponent {
     constructor(props) {
         super(props);
 
@@ -25,7 +27,15 @@ export default class ExpenseCategoryList extends React.Component {
         </div>
     }
 
+
     componentDidMount() {
+        const dataFromRedirection = this.props.location.state;
+
+        if(dataFromRedirection) {
+            const verb = OperationType.getOperationVerb(dataFromRedirection.type);
+            super.notifySuccess(`Category '${dataFromRedirection.model.name}' has been ${verb}.`);
+        }
+
         this.getAll();
     }
 
@@ -37,6 +47,7 @@ export default class ExpenseCategoryList extends React.Component {
                 return category._id != categoryModel.id;
             });
             that.setState({ categories: filtered });
+            super.notifySuccess(`Category '${model.name}' has been deleted.`);
         });
     }
 
@@ -72,6 +83,7 @@ export default class ExpenseCategoryList extends React.Component {
                         />
                     </div>
                 </div>
+                {this.renderToastContainer()}
             </div>
         );
     }

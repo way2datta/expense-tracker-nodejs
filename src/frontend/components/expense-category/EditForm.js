@@ -1,15 +1,17 @@
 import React from 'react';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import Form from "./Form";
+import AppComponent from '../utility/AppComponent';
+import OperationType from '../utility/OperationType';
 const _ = require('lodash');
 
-export default class EditExpenseCagegoryForm extends React.Component {
+export default class EditExpenseCagegoryForm extends AppComponent {
     constructor(props) {
         super(props);
         this.state = {
             model: new ExpenseCategoryModel()
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit']);
+        _.bindAll(this, ['handleChange', 'handleSubmit', 'onError','onUpdated']);
     }
 
     componentDidMount() {
@@ -26,12 +28,17 @@ export default class EditExpenseCagegoryForm extends React.Component {
         this.setState({ model });
     }
 
+    onError(errorMessage) {
+        super.notifyError(errorMessage);
+    }
+
+    onUpdated(category) {
+        this.props.history.push('/expenses/categories', { model: category, type: OperationType.UPDATE() });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        const that = this;
-        this.state.model.update(() => {
-            that.props.history.push('/expenses/categories');
-        });
+        this.state.model.update(this.onUpdated, this.onError);
     }
 
     render() {
@@ -42,6 +49,7 @@ export default class EditExpenseCagegoryForm extends React.Component {
                     model={this.state.model}
                     heading="Edit Category"
                 />
+                {this.renderToastContainer()}
             </div>
         );
     }

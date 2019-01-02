@@ -1,15 +1,17 @@
 import React from 'react';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import FormModel from "./Form";
+import AppComponent from '../utility/AppComponent';
+import OperationType from '../utility/operationType';
 const _ = require('lodash');
 
-export default class CreateExpenseCagegoryForm extends React.Component {
+export default class CreateExpenseCagegoryForm extends AppComponent {
     constructor(props) {
         super(props);
         this.state = {
             model: new ExpenseCategoryModel()
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit']);
+        _.bindAll(this, ['handleChange', 'handleSubmit','onCreated']);
     }
 
     handleChange(event) {
@@ -18,12 +20,17 @@ export default class CreateExpenseCagegoryForm extends React.Component {
         this.setState({ model });
     }
 
+    onError(errorMessage) {
+        super.notifyError(errorMessage);
+    }
+
+    onCreated(category) {
+        this.props.history.push('/expenses/categories', { model: category, type: OperationType.CREATE() });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        const that = this;
-        this.state.model.create(() => {
-            that.props.history.push('/expenses/categories');
-        });
+        this.state.model.create(this.onCreated, this.onError);
     }
 
     render() {
@@ -34,6 +41,7 @@ export default class CreateExpenseCagegoryForm extends React.Component {
                     model={this.state.model}
                     heading="Create Category"
                 />
+                {this.renderToastContainer()}
             </div>
         );
     }
