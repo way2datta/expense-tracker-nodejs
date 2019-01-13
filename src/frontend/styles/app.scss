@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/_pagination";
 @import "./table";
 @import "./variables";
 @import "./spacing-helpers";
@@ -64,4 +65,21 @@ h3.heading {
   span{
     margin: 0 20px;
   }
+}
+
+.pagination {
+  display: block !important;
+}
+
+.pagination ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 10px;
+  font-weight: bold;
+  text-transform: capitalize;
 }

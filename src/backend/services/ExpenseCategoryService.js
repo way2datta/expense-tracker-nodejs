@@ -7,9 +7,40 @@ export default class ExpenseCategoryService {
         return category;
     }
     async getAll() {
-        return await ExpenseCategory.find().sort({'_id': -1  });
+        return await ExpenseCategory.find().sort({ '_id': -1 });
     }
-    
+
+    async getPaginated(request) {
+        var pageNo = parseInt(request.query.pageNo);
+        var pageSize = parseInt(request.query.pageSize);
+        var query = {};
+
+        if (pageNo < 0 || pageNo === 0) {
+            const customResponse = { "error": true, "message": "invalid page number, should start with 1" };
+            return request.json(customResponse);
+        }
+
+        query.skip = pageSize * pageNo;
+        query.limit = pageSize;
+
+        const datasource = await ExpenseCategory.find({}, {}, query);
+        
+        const totalSize = await this.getCount();
+        
+        const totalPages = Math.ceil(totalSize / pageSize);
+
+        return {
+            datasource,
+            totalPages,
+            pageNo,
+            pageSize
+        }
+    }
+
+    async getCount() {
+        return await ExpenseCategory.count();
+    }
+
     async getById(id) {
         return await ExpenseCategory.findById(id);
     }
@@ -18,13 +49,15 @@ export default class ExpenseCategoryService {
         const category = await ExpenseCategory.findById(id);
         if (!category) {
             throw 'ExpenseCategory not found';
-        } 
+        }
         Object.assign(category, expenseCategoryParam);
         await category.save();
         return category;
     }
-    
+
     async delete(id) {
         await ExpenseCategory.findByIdAndRemove(id);
     }
 }
+
+

@@ -6,7 +6,8 @@ export default class ExpenseCategoryController extends BaseController{
     constructor(props) {
         super(props);
         this.service = new ExpenseCategoryService();
-        _.bindAll(this, ['create', 'update', 'getAll', 'getById', 'delete']);
+        _.bindAll(this, ['create', 'update', 'getAll', 'getById', 'delete',
+            'getPaginated','getCount']);
     }
 
     create(request, response, next) {
@@ -23,6 +24,18 @@ export default class ExpenseCategoryController extends BaseController{
 
     getAll(request, response, next) {
         this.service.getAll()
+            .then(category => super.OK(response, category))
+            .catch(error => next(error));
+    }
+
+    getPaginated(request, response, next) {
+        this.service.getPaginated(request)
+            .then(category => super.OK(response, category))
+            .catch(error => next(error));
+    }
+    
+    getCount(request, response, next) {
+        this.service.getCount(request)
             .then(category => super.OK(response, category))
             .catch(error => next(error));
     }

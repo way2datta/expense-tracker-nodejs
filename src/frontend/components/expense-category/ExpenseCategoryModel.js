@@ -23,6 +23,13 @@ export default class ExpenseCategoryModel {
             });
     }
 
+    getPaginated(pageNo, pageSize, callback) {
+        axios.get(this.Url, { params: { pageNo, pageSize }})
+            .then((response) => {
+                callback(response.data);
+            });
+    }
+
     create(callback, onError) {
         axios.post(this.Url, {
             name: this.name

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import AppComponent from "./../utility/AppComponent";
-import Grid from '../Grid';
+import GridWithPagination from '../GridWithPagination';
 import OperationType from "./../utility/OperationType";
 const _ = require('lodash');
 
@@ -11,11 +11,14 @@ export default class ExpenseCategoryList extends AppComponent {
         super(props);
 
         this.state = {
-            categories: [],
-            model: new ExpenseCategoryModel()
+            datasource: [],
+            model: new ExpenseCategoryModel(),
+            pageNo: 1,
+            pageSize: 4,
+            totalPages: 0
         };
 
-        _.bindAll(this, ['renderGridActions', 'getAll', 'delete']);
+        _.bindAll(this, ['renderGridActions', 'getPaginated', 'delete']);
     }
 
     renderGridActions(model) {
@@ -31,19 +34,18 @@ export default class ExpenseCategoryList extends AppComponent {
     componentDidMount() {
         const dataFromRedirection = this.props.location.state;
 
-        if(dataFromRedirection) {
+        if (dataFromRedirection) {
             const verb = OperationType.getOperationVerb(dataFromRedirection.type);
             super.notifySuccess(`Category '${dataFromRedirection.model.name}' has been ${verb}.`);
         }
-
-        this.getAll();
+        this.getPaginated();
     }
 
     delete(event, model) {
         const categoryModel = ExpenseCategoryModel.clone(model);
         const that = this;
         categoryModel.delete(() => {
-            var filtered = this.state.categories.filter(function (category) {
+            var filtered = this.state.datasource.filter(function (category) {
                 return category._id != categoryModel.id;
             });
             that.setState({ categories: filtered });
@@ -55,9 +57,14 @@ export default class ExpenseCategoryList extends AppComponent {
         this.props.history.push('/expenses/categories/edit/' + model._id);
     }
 
-    getAll() {
-        this.state.model.getAll((categories) => {
-            this.setState({ categories });
+    getPaginated(selected) {
+        let { pageNo, pageSize, totalPages } = this.state;
+        if (selected) {
+            pageNo = +selected;
+        }
+        this.state.model.getPaginated(pageNo, pageSize, (response) => {
+            const { datasource, pageNo, pageSize, totalPages } = response;
+            this.setState({ datasource, pageNo, pageSize, totalPages });
         });
     }
 
@@ -74,12 +81,17 @@ export default class ExpenseCategoryList extends AppComponent {
                 </div>
                 <div className="row">
                     <div className="col-md-8">
-                        <Grid
+                        <GridWithPagination
                             attributes={attributes}
-                            datasource={this.state.categories}
+                            datasource={this.state.datasource}
                             headers={headers}
                             headerCssClasses={headerCssClasses}
                             columnCssClasses={columnCssClasses}
+                            perPage={this.state.pageSize}
+                            pageCount={this.state.totalPages}
+                            pageRangeDisplayed="2"
+                            loadDataSource={this.getPaginated}
+                            activeClassName="active"
                         />
                     </div>
                 </div>
