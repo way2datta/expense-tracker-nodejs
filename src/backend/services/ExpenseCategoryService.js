@@ -1,8 +1,9 @@
 import ExpenseCategory from "../models/ExpenseCategory";
 
 export default class ExpenseCategoryService {
-    async create(categoryParam) {
-        const category = new ExpenseCategory(categoryParam);
+    async create(entity) {
+        delete entity.createdAt; 
+        const category = new ExpenseCategory(entity);
         await category.save();
         return category;
     }
@@ -45,12 +46,13 @@ export default class ExpenseCategoryService {
         return await ExpenseCategory.findById(id);
     }
 
-    async update(id, expenseCategoryParam) {
+    async update(id, entity) {
+        delete entity.createdAt; 
         const category = await ExpenseCategory.findById(id);
         if (!category) {
             throw 'ExpenseCategory not found';
         }
-        Object.assign(category, expenseCategoryParam);
+        Object.assign(category, entity);
         await category.save();
         return category;
     }

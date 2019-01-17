@@ -1,3 +1,5 @@
+'use strict';
+
 import express from 'express';
 import servicesRoutes from './routes/services';
 import DatabaseInitializer from "./database/DatabaseInitializer";

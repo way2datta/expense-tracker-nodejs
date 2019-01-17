@@ -29,6 +29,7 @@ router.put('/users/:id/expenses/categories/:categoryId', expenseCategoryControll
 router.post('/users/:id/expenses/categories', expenseCategoryController.create);
 
 const expenseController = new ExpenseController();
+router.get('/users/:id/expenses/all', expenseController.getAll);
 router.get('/users/:id/expenses/', expenseController.getPaginated);
 router.get('/users/:id/expenses/:expenseId', expenseController.getById);
 router.delete('/users/:id/expenses/:expenseId', expenseController.delete);
