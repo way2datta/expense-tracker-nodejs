@@ -15,18 +15,18 @@ export default class ExpenseCategoryService {
         var pageSize = parseInt(request.query.pageSize);
         var query = {};
 
-        if (pageNo < 0 || pageNo === 0) {
+        if (pageNo < 0) {
             const customResponse = { "error": true, "message": "invalid page number, should start with 1" };
             return request.json(customResponse);
         }
 
-        query.skip = pageSize * pageNo;
+        query.skip = pageSize * (pageNo);
         query.limit = pageSize;
 
         const datasource = await ExpenseCategory.find({}, {}, query);
-        
+
         const totalSize = await this.getCount();
-        
+
         const totalPages = Math.ceil(totalSize / pageSize);
 
         return {

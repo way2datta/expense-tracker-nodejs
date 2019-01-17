@@ -133,7 +133,7 @@ GridWithPagination.propTypes = {
     actionHeaders: PropTypes.array,
     actions: PropTypes.array,
     headerCssClasses: PropTypes.array,
-    perPage: PropTypes.string,
-    pageCount: PropTypes.string,
+    perPage: PropTypes.number,
+    pageCount: PropTypes.number,
     loadDataSource: PropTypes.func
 };

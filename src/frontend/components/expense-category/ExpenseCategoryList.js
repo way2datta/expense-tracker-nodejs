@@ -13,7 +13,7 @@ export default class ExpenseCategoryList extends AppComponent {
         this.state = {
             datasource: [],
             model: new ExpenseCategoryModel(),
-            pageNo: 1,
+            pageNo: 0,
             pageSize: 4,
             totalPages: 0
         };
@@ -59,7 +59,7 @@ export default class ExpenseCategoryList extends AppComponent {
 
     getPaginated(selected) {
         let { pageNo, pageSize, totalPages } = this.state;
-        if (selected) {
+        if (selected >= 0) {
             pageNo = +selected;
         }
         this.state.model.getPaginated(pageNo, pageSize, (response) => {
