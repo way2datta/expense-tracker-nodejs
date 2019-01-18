@@ -108,7 +108,8 @@ export default class ExpenseReportSummary extends React.Component {
                             />
                             <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
                             <Bar yAxisId="totalAmount" dataKey="totalAmount">
-                                <LabelList angle={-90} formatter={(value) => new Intl.NumberFormat('en').format(value)} />
+                                <LabelList angle={-90} 
+                                    formatter={(value) => new Intl.NumberFormat('en').format(value)} />
                                 {
                                     this.state.datasource.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={`${index % 20}`} />

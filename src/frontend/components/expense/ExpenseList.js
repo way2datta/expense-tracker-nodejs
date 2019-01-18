@@ -1,4 +1,5 @@
 import React from 'react';
+const _ = require('lodash');
 import Grid from '../Grid';
 import ExpenseModel from "./ExpenseModel";
 import { formatDate } from '../../helpers/formatDate';

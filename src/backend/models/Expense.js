@@ -10,7 +10,7 @@ const ExpenseSchema = mongoose.Schema({
         ref: 'ExpenseCategory',
     },
 },
-    { timestamps: true }
+{ timestamps: true }
 );
 
 module.exports = mongoose.model('Expense', ExpenseSchema);

@@ -7,15 +7,15 @@
 body {
   background-color: $defaultBackgrondColor;
 }
-.body-content{
+.body-content {
   background-color: white;
   padding: 20px;
 }
 h3.heading {
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    padding-bottom: 9px;
-    border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
 }
 .card {
   height: 200px;
@@ -24,45 +24,45 @@ h3.heading {
   margin-top: 25px;
 }
 
-  .card a {
-      height: 200px;
-      cursor: pointer;
-      color: white;
-      text-decoration: none;
-      display: table-cell;
-      vertical-align: middle;
-      text-align: center;
-      font-size: xx-large;
-  }
-  .card a:hover {
-      cursor: pointer;
-      color: white;
-      text-decoration: none;
-  }
+.card a {
+  height: 200px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: xx-large;
+}
+.card a:hover {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
 
 .bg-aqua {
   background-color: #00c0ef !important;
 }
 
-.bg-green{
+.bg-green {
   background-color: #00a65a !important;
 }
 
 .bg-yellow {
   background-color: #f39c12 !important;
 }
-.recharts-responsive-container{
+.recharts-responsive-container {
   margin: 0 auto;
   height: 50% !important;
 }
-.month-selector{
+.month-selector {
   float: right;
-  a{
+  a {
     color: #000;
     cursor: pointer;
     font-weight: 700;
   }
-  span{
+  span {
     margin: 0 20px;
   }
 }
@@ -82,4 +82,9 @@ h3.heading {
   margin: 0 10px;
   font-weight: bold;
   text-transform: capitalize;
+}
+
+.pagination li.disabled a {
+  color: gray;
+  pointer-events: none;
 }

@@ -8,7 +8,7 @@ const categorySchema = mongoose.Schema({
         unique: true
     }
 },
-    { timestamps: true },
+{ timestamps: true },
 );
 categorySchema.plugin(uniqueValidator);
 module.exports = mongoose.model('ExpenseCategory', categorySchema);

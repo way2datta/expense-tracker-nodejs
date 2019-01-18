@@ -58,7 +58,7 @@ export default class ExpenseCategoryList extends AppComponent {
     }
 
     getPaginated(selected) {
-        let { pageNo, pageSize, totalPages } = this.state;
+        let { pageNo, pageSize } = this.state;
         if (selected >= 0) {
             pageNo = +selected;
         }
