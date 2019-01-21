@@ -45,11 +45,8 @@ export default class ExpenseCategoryList extends AppComponent {
         const categoryModel = ExpenseCategoryModel.clone(model);
         const that = this;
         categoryModel.delete(() => {
-            var filtered = this.state.datasource.filter(function (category) {
-                return category._id != categoryModel.id;
-            });
-            that.setState({ categories: filtered });
             super.notifySuccess(`Category '${model.name}' has been deleted.`);
+            that.getPaginated();
         });
     }
 

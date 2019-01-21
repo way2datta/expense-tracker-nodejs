@@ -28,4 +28,12 @@ export default class ExpenseModel {
                 callback(response.data);
             });
     }
+
+    delete(callback) {
+        axios.delete(this.Url + this.id, {
+            id: this._id
+        }).then((response) => {
+            callback(response.data);
+        });
+    }
 }
