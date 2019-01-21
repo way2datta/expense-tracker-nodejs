@@ -92,3 +92,16 @@ h3.heading {
     pointer-events: none;
   }
 }
+
+.modal-wrapper {
+  margin: 20px;
+  h2 {
+    margin: 20px 0;
+  }
+  .content {
+    margin: 20px 0;
+  }
+  .actions {
+    margin: 20px 0;
+  }
+}

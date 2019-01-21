@@ -1,5 +1,6 @@
 import React from 'react';
 const _ = require('lodash');
+import Modal from 'react-responsive-modal';
 import Grid from '../Grid';
 import AppComponent from "./../utility/AppComponent";
 import ExpenseModel from "./ExpenseModel";
@@ -11,25 +12,40 @@ export default class ExpenseList extends AppComponent {
     constructor(props) {
         super(props);
         this.state = {
+            open: false,
             datasource: [],
             model: new ExpenseModel(),
             pageNo: 0,
             pageSize: 10,
-            totalPages: 0
+            totalPages: 0,
+            modelToDelete: undefined
         };
-        _.bindAll(this, ['getPaginated', 'renderGridActions']);
+        _.bindAll(this, ['getPaginated', 'renderGridActions', 'onCloseModal']);
     }
+
+    onOpenModal() {
+        this.setState({ open: true });
+    };
+
+    onCloseModal() {
+        this.setState({ open: false });
+    };
 
     componentDidMount() {
         this.getPaginated();
     }
 
     delete(event, model) {
+        this.setState({ open: true, modelToDelete: model });
+    }
+
+    onConfirmDelete(event, model) {
         const clonedModel = ExpenseModel.clone(model);
         const that = this;
         clonedModel.delete(() => {
             super.notifySuccess(`Expense '${clonedModel.description}' has been deleted.`);
             that.getPaginated();
+            this.setState({ open: false, modelToDelete: undefined });
         });
     }
 
@@ -67,7 +83,7 @@ export default class ExpenseList extends AppComponent {
         const attributes = ['description', this.formatAmount, this.formatIncurredDate,
             'category.name', this.renderGridActions];
         const columnCssClasses = ['', 'text-right', 'text-right', ''];
-
+        const { open, modelToDelete } = this.state;
         return (
             <div>
                 <h3 className="heading">Expenses</h3>
@@ -83,7 +99,22 @@ export default class ExpenseList extends AppComponent {
                     perPage={this.state.pageSize}
                     pageCount={this.state.totalPages}
                     loadDataSource={this.getPaginated}
-                    activeClassName="active" />
+                    activeClassName="active"
+                />
+                <Modal open={open} onClose={this.onCloseModal} center >
+                    <div className="modal-wrapper">
+                        <h2>Confirm delete</h2>
+                        <div className="content">
+                            Are you sure you want to delete?
+                        </div>
+                        <div className="actions">
+                            <a className="btn btn-light margin-right-20"
+                                onClick={this.onCloseModal}>Cancel</a>
+                            <a className="btn btn-danger"
+                                onClick={e => this.onConfirmDelete(e, modelToDelete)}>Delete</a>
+                        </div>
+                    </div>
+                </Modal>
                 {this.renderToastContainer()}
             </div>
         );
