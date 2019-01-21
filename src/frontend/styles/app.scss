@@ -82,6 +82,10 @@ h3.heading {
   margin: 0 10px;
   font-weight: bold;
   text-transform: capitalize;
+
+  a {
+    outline: none;
+  }
 }
 
 .pagination li.disabled a {
