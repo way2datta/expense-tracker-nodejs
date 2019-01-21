@@ -2,13 +2,13 @@ import ExpenseCategory from "../models/ExpenseCategory";
 
 export default class ExpenseCategoryService {
     async create(entity) {
-        delete entity.createdAt; 
+        delete entity.createdAt;
         const category = new ExpenseCategory(entity);
         await category.save();
         return category;
     }
     async getAll() {
-        return await ExpenseCategory.find().sort({ '_id': -1 });
+        return await ExpenseCategory.find().sort({ 'updatedAt': -1 });
     }
 
     async getPaginated(request) {
@@ -24,7 +24,8 @@ export default class ExpenseCategoryService {
         query.skip = pageSize * (pageNo);
         query.limit = pageSize;
 
-        const datasource = await ExpenseCategory.find({}, {}, query);
+        const datasource = await ExpenseCategory.find({}, {}, query)
+            .sort({ 'updatedAt': -1 });
 
         const totalSize = await this.getCount();
 
@@ -47,7 +48,8 @@ export default class ExpenseCategoryService {
     }
 
     async update(id, entity) {
-        delete entity.createdAt; 
+        delete entity.createdAt;
+        delete entity.updatedAt;
         const category = await ExpenseCategory.findById(id);
         if (!category) {
             throw 'ExpenseCategory not found';
