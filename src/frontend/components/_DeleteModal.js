@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
 import PropTypes from 'prop-types';
-const _ = require('lodash');
 
 export default class DeleteModal extends React.Component {
     render() {
