@@ -25,7 +25,7 @@ export default class ExpenseList extends AppComponent {
 
     onCloseModal() {
         this.setState({ selectedModel: undefined });
-    };
+    }
 
     componentDidMount() {
         this.getPaginated();
@@ -77,8 +77,9 @@ export default class ExpenseList extends AppComponent {
         const attributes = ['description', this.formatAmount, this.formatIncurredDate,
             'category.name', this.renderGridActions];
         const columnCssClasses = ['', 'text-right', 'text-right', 'padding-left-30'];
-        const { selectedModel: selectedModel } = this.state;
+        const { selectedModel } = this.state;
         const open = selectedModel !== undefined;
+
         return (
             <div>
                 <h3 className="heading">Expenses</h3>

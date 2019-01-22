@@ -4,6 +4,8 @@ import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import AppComponent from "./../utility/AppComponent";
 import GridWithPagination from '../GridWithPagination';
 import OperationType from "./../utility/OperationType";
+import DeleteModal from "./../_DeleteModal";
+
 const _ = require('lodash');
 
 export default class ExpenseCategoryList extends AppComponent {
@@ -15,10 +17,29 @@ export default class ExpenseCategoryList extends AppComponent {
             model: new ExpenseCategoryModel(),
             pageNo: 0,
             pageSize: 4,
-            totalPages: 0
+            totalPages: 0,
+            selectedModel: undefined
         };
 
-        _.bindAll(this, ['renderGridActions', 'getPaginated', 'delete']);
+        _.bindAll(this, ['renderGridActions', 'getPaginated', 'onCloseModal']);
+    }
+
+    onCloseModal() {
+        this.setState({ selectedModel: undefined });
+    }
+
+    selectModel(event, model) {
+        this.setState({ selectedModel: model });
+    }
+
+    onConfirmDelete(event, model) {
+        const clonedModel = ExpenseCategoryModel.clone(model);
+        const that = this;
+        clonedModel.delete(() => {
+            super.notifySuccess(`Category '${clonedModel.name}' has been deleted.`);
+            that.getPaginated();
+            this.setState({ open: false, selectedModel: undefined });
+        });
     }
 
     renderGridActions(model) {
@@ -26,7 +47,7 @@ export default class ExpenseCategoryList extends AppComponent {
             <a className="btn btn-primary text-light btn-sm margin-right-20"
                 onClick={e => this.edit(e, model)}>Edit</a>
             <a className="btn btn-danger text-light btn-sm"
-                onClick={e => this.delete(e, model)}>Delete</a>
+                onClick={e => this.selectModel(e, model)}>Delete</a>
         </div>
     }
 
@@ -39,15 +60,6 @@ export default class ExpenseCategoryList extends AppComponent {
             super.notifySuccess(`Category '${dataFromRedirection.model.name}' has been ${verb}.`);
         }
         this.getPaginated();
-    }
-
-    delete(event, model) {
-        const categoryModel = ExpenseCategoryModel.clone(model);
-        const that = this;
-        categoryModel.delete(() => {
-            super.notifySuccess(`Category '${model.name}' has been deleted.`);
-            that.getPaginated();
-        });
     }
 
     edit(event, model) {
@@ -70,6 +82,9 @@ export default class ExpenseCategoryList extends AppComponent {
         const headerCssClasses = ['', ''];
         const attributes = ['name', this.renderGridActions];
         const columnCssClasses = ['', ''];
+        const { selectedModel } = this.state;
+        const open = selectedModel !== undefined;
+
         return (
             <div>
                 <h3 className="heading">Expenses Categories</h3>
@@ -93,6 +108,12 @@ export default class ExpenseCategoryList extends AppComponent {
                     </div>
                 </div>
                 {this.renderToastContainer()}
+                <DeleteModal open={open}
+                    onClose={this.onCloseModal}
+                    heading="Confirm delete"
+                    content="Are you sure you want to delete?"
+                    onConfirmDelete={e => this.onConfirmDelete(e, selectedModel)}
+                />
             </div>
         );
     }
