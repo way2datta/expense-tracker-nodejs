@@ -4,7 +4,7 @@ import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import AppComponent from "./../utility/AppComponent";
 import GridWithPagination from '../GridWithPagination';
 import OperationType from "./../utility/OperationType";
-import DeleteModal from "./../_DeleteModal";
+import DeleteModal from "./../../lib/_DeleteModal"
 
 const _ = require('lodash');
 

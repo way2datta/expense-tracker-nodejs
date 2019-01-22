@@ -5,8 +5,8 @@ import AppComponent from "./../utility/AppComponent";
 import ExpenseModel from "./ExpenseModel";
 import { formatDate } from '../../helpers/formatDate';
 import { formatMoney } from '../../helpers/formatMoney';
-import Pagination from './../_Pagination';
-import DeleteModal from "./../_DeleteModal";
+import Pagination from './../../lib/_Pagination';
+import DeleteModal from "./../../lib/_DeleteModal"
 
 export default class ExpenseList extends AppComponent {
     constructor(props) {
