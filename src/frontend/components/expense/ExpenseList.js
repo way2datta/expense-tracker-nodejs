@@ -1,12 +1,12 @@
 import React from 'react';
 const _ = require('lodash');
-import Modal from 'react-responsive-modal';
 import Grid from '../Grid';
 import AppComponent from "./../utility/AppComponent";
 import ExpenseModel from "./ExpenseModel";
 import { formatDate } from '../../helpers/formatDate';
 import { formatMoney } from '../../helpers/formatMoney';
 import Pagination from './../_Pagination';
+import DeleteModal from "./../_DeleteModal";
 
 export default class ExpenseList extends AppComponent {
     constructor(props) {
@@ -18,25 +18,21 @@ export default class ExpenseList extends AppComponent {
             pageNo: 0,
             pageSize: 10,
             totalPages: 0,
-            modelToDelete: undefined
+            selectedModel: undefined
         };
         _.bindAll(this, ['getPaginated', 'renderGridActions', 'onCloseModal']);
     }
 
-    onOpenModal() {
-        this.setState({ open: true });
-    };
-
     onCloseModal() {
-        this.setState({ open: false });
+        this.setState({ selectedModel: undefined });
     };
 
     componentDidMount() {
         this.getPaginated();
     }
 
-    delete(event, model) {
-        this.setState({ open: true, modelToDelete: model });
+    selectModel(event, model) {
+        this.setState({ selectedModel: model });
     }
 
     onConfirmDelete(event, model) {
@@ -45,14 +41,14 @@ export default class ExpenseList extends AppComponent {
         clonedModel.delete(() => {
             super.notifySuccess(`Expense '${clonedModel.description}' has been deleted.`);
             that.getPaginated();
-            this.setState({ open: false, modelToDelete: undefined });
+            this.setState({ open: false, selectedModel: undefined });
         });
     }
 
     renderGridActions(model) {
         return <div className="text-right">
             <a className="btn btn-danger text-light btn-sm"
-                onClick={e => this.delete(e, model)}>Delete</a>
+                onClick={e => this.selectModel(e, model)}>Delete</a>
         </div>
     }
 
@@ -67,8 +63,6 @@ export default class ExpenseList extends AppComponent {
         });
     }
 
-
-
     formatIncurredDate(model) {
         return formatDate(model.incurredAt);
     }
@@ -79,11 +73,12 @@ export default class ExpenseList extends AppComponent {
 
     render() {
         const headers = ['Description', 'Amount', 'Incurred At', 'Category', ''];
-        const headerCssClasses = ['', 'text-right', 'text-right', ''];
+        const headerCssClasses = ['', 'text-right', 'text-right', 'padding-left-30'];
         const attributes = ['description', this.formatAmount, this.formatIncurredDate,
             'category.name', this.renderGridActions];
-        const columnCssClasses = ['', 'text-right', 'text-right', ''];
-        const { open, modelToDelete } = this.state;
+        const columnCssClasses = ['', 'text-right', 'text-right', 'padding-left-30'];
+        const { selectedModel: selectedModel } = this.state;
+        const open = selectedModel !== undefined;
         return (
             <div>
                 <h3 className="heading">Expenses</h3>
@@ -101,20 +96,12 @@ export default class ExpenseList extends AppComponent {
                     loadDataSource={this.getPaginated}
                     activeClassName="active"
                 />
-                <Modal open={open} onClose={this.onCloseModal} center >
-                    <div className="modal-wrapper">
-                        <h2>Confirm delete</h2>
-                        <div className="content">
-                            Are you sure you want to delete?
-                        </div>
-                        <div className="actions">
-                            <a className="btn btn-light margin-right-20"
-                                onClick={this.onCloseModal}>Cancel</a>
-                            <a className="btn btn-danger"
-                                onClick={e => this.onConfirmDelete(e, modelToDelete)}>Delete</a>
-                        </div>
-                    </div>
-                </Modal>
+                <DeleteModal open={open}
+                    onClose={this.onCloseModal}
+                    heading="Confirm delete"
+                    content="Are you sure you want to delete?"
+                    onConfirmDelete={e => this.onConfirmDelete(e, selectedModel)}
+                />
                 {this.renderToastContainer()}
             </div>
         );
