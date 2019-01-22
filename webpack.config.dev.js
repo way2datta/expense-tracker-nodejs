@@ -1,12 +1,17 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'inline-source-map',
-    entry: './src/frontend/index.js',
+    entry: {
+        main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
+        './src/frontend/index.js']
+    },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/',
+        filename: '[name].js'
     },
     mode: 'development',
     target: 'web',
@@ -58,6 +63,7 @@ module.exports = {
             filename: './index.html',
             excludeChunks: ['server']
         }),
-
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 };
