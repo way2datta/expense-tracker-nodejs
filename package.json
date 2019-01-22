@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.config.dev.js",
+    "buildProd": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
     "clean": "rm -rf dist",
     "client-dev": "webpack --mode development --config webpack.config.dev.js",
     "client-prod": "webpack --mode production --config webpack.config.prod.js",

@@ -6,7 +6,7 @@ module.exports = {
     devtool: 'inline-source-map',
     entry: {
         main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
-        './src/frontend/index.js']
+        '@babel/polyfill', '@babel/register', './src/frontend/index.js']
     },
     output: {
         path: path.join(__dirname, 'dist'),
