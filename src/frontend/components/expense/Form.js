@@ -7,6 +7,9 @@ export default class ExpenseForm extends React.Component {
         let optionItems = categories.map((category) =>
             <option key={category.name} value={category._id}>{category.name}</option>
         );
+        optionItems.unshift(<option key=""
+            value="">{"---Select---"}
+        </option>);
 
         return (
             <div>
@@ -16,7 +19,7 @@ export default class ExpenseForm extends React.Component {
                         <label htmlFor="CategoryId" className="col-sm-2 col-form-label">Category:</label>
                         <div className="col-sm-4">
                             <select
-                                name="categoryId"
+                                name="category"
                                 className="form-control"
                                 onChange={this.props.handleChange} >
                                 {optionItems}
@@ -43,9 +46,12 @@ export default class ExpenseForm extends React.Component {
                     <div className="form-group row">
                         <label htmlFor="IncurredAt" className="col-sm-2 col-form-label">IncurredAt:</label>
                         <div className="col-sm-4">
-                            <input name="incurredAt" type="text" className="form-control" id="IncurredAt"
+                            <input name="incurredAt"
+                                type="date"
+                                className="form-control"
                                 placeholder="IncurredAt" value={this.props.model.incurredAt}
-                                onChange={this.props.handleChange} />
+                                onChange={this.props.handleChange}
+                            />
                         </div>
                     </div>
 
@@ -61,4 +67,5 @@ ExpenseForm.propTypes = {
     handleSubmit: PropTypes.func,
     model: PropTypes.object,
     handleChange: PropTypes.func,
+    categories: PropTypes.array
 };

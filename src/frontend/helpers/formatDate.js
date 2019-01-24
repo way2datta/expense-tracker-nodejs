@@ -11,3 +11,22 @@ export function formatDate(dateString) {
     var year = date.getFullYear();
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
+
+
+export function formatCalenderDate(dateString) {
+    const date = new Date(dateString);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    var year = date.getFullYear();
+    return year + "-" + month + "-" + day;
+}
+
+

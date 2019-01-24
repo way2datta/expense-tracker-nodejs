@@ -1,15 +1,19 @@
 import React from 'react';
 import ExpenseModel from "./ExpenseModel";
 import ExpenseCategoryModel from "./../expense-category/ExpenseCategoryModel";
-
 import Form from "./Form";
+import { formatCalenderDate } from '../../helpers/formatDate';
+
 const _ = require('lodash');
 
 export default class CreateExpenseFormModel extends React.Component {
     constructor(props) {
         super(props);
+        const model = new ExpenseModel();
+        model.incurredAt = formatCalenderDate(new Date());
+
         this.state = {
-            model: new ExpenseModel(),
+            model,
             categories: []
         };
         _.bindAll(this, ['handleChange', 'handleSubmit']);

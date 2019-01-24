@@ -87,7 +87,7 @@ export default class ExpenseList extends AppComponent {
                 <div className="margin-top-10 margin-bottom-20">
                     <Link to="/expenses/new" className="btn btn-primary">New</Link>
                 </div>
-                <Grid
+               <Grid
                     attributes={attributes}
                     datasource={this.state.datasource}
                     headers={headers}

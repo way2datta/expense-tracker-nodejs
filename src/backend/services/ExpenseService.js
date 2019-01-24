@@ -35,7 +35,8 @@ export default class ExpenseService {
                 path: 'category',
                 model: 'ExpenseCategory',
                 select: '_id name'
-            });
+            })
+            .sort({ 'updatedAt': -1 });
 
         const totalSize = await this.getCount();
         const totalPages = Math.ceil(totalSize / pageSize);
