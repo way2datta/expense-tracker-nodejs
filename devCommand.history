@@ -63,3 +63,4 @@ npm install webpack webpack-cli --save-dev
  npm install --save react-toastify
  npm install --save react-paginate
  npm install --save react-responsive-modal
+ npm install --save-dev webpack-dev-middleware

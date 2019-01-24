@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
     devtool: 'inline-source-map',
@@ -8,6 +9,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -27,6 +29,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './src/frontend/index.html',
             filename: './index.html'
-        })
+        }),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 };
