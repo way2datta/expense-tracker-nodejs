@@ -1,5 +1,6 @@
 import React from 'react';
 const _ = require('lodash');
+import { Link } from 'react-router-dom';
 import Grid from '../Grid';
 import AppComponent from "./../utility/AppComponent";
 import ExpenseModel from "./ExpenseModel";
@@ -18,7 +19,7 @@ export default class ExpenseList extends AppComponent {
             pageNo: 0,
             pageSize: 10,
             totalPages: 0,
-            selectedModel: undefined
+            selectedModel: undefined,
         };
         _.bindAll(this, ['getPaginated', 'renderGridActions', 'onCloseModal']);
     }
@@ -83,6 +84,9 @@ export default class ExpenseList extends AppComponent {
         return (
             <div>
                 <h3 className="heading">Expenses</h3>
+                <div className="margin-top-10 margin-bottom-20">
+                    <Link to="/expenses/new" className="btn btn-primary">New</Link>
+                </div>
                 <Grid
                     attributes={attributes}
                     datasource={this.state.datasource}

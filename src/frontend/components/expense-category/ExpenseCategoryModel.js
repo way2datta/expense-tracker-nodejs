@@ -17,7 +17,7 @@ export default class ExpenseCategoryModel {
     }
 
     getAll(callback) {
-        axios.get(this.Url)
+        axios.get(this.Url + 'all')
             .then((response) => {
                 callback(response.data);
             });
