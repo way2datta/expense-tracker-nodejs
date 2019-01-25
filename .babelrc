@@ -6,5 +6,15 @@
                 "useBuiltIns": "entry"
             }
         ]
-    ]
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "@babel/env"
+                ],
+                "@babel/react"
+            ]
+        }
+    }
 }
