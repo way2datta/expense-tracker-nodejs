@@ -64,3 +64,5 @@ npm install webpack webpack-cli --save-dev
  npm install --save react-paginate
  npm install --save react-responsive-modal
  npm install --save-dev webpack-dev-middleware
+ npm install --save-dev jest
+ npm install babel-core@7.0.0-bridge.0
