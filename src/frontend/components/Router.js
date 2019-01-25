@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Dashboard from './dashboard';
+import Dashboard from './dashboard/Dashboard';
 import ExpenseList from './expense/ExpenseList';
 import ExpenseCategoryList from './expense-category/ExpenseCategoryList';
 import EditExpenseCagegoryForm from './expense-category/EditForm';
