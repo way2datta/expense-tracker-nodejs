@@ -1,0 +1,10 @@
+{
+    "coverageDirectory": "./../../build/client-coverage",
+    "rootDir":"./",
+    "collectCoverage":true,
+    "collectCoverageFrom": [
+      "**/components/**/*.js",
+      "**/helpers/*.js"
+    ]
+  }
+  

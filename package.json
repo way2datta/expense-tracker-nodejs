@@ -16,7 +16,8 @@
     "lint-server-fix": "./node_modules/.bin/eslint src/backend --fix",
     "lint-client": "./node_modules/.bin/eslint src/frontend",
     "lint-client-fix": "./node_modules/.bin/eslint src/frontend --fix",
-    "test": "jest"
+    "test": "jest",
+    "ui-test-coverage": "jest --config=./src/frontend/config.json"
   },
   "repository": {
     "type": "git",
