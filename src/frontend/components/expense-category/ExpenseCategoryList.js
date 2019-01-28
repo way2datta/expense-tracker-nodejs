@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import AppComponent from "./../utility/AppComponent";
-import GridWithPagination from '../GridWithPagination';
+import Grid from '../Grid';
 import OperationType from "./../utility/OperationType";
 import DeleteModal from "./../../lib/_DeleteModal"
+import Pagination from './../../lib/_Pagination';
 
 const _ = require('lodash');
 
@@ -93,15 +94,17 @@ export default class ExpenseCategoryList extends AppComponent {
                 </div>
                 <div className="row">
                     <div className="col-md-8">
-                        <GridWithPagination
+                        <Grid
                             attributes={attributes}
                             datasource={this.state.datasource}
                             headers={headers}
                             headerCssClasses={headerCssClasses}
                             columnCssClasses={columnCssClasses}
+                        />
+                        <Pagination
+                            containsRecords={this.state.datasource.length !== 0}
                             perPage={this.state.pageSize}
                             pageCount={this.state.totalPages}
-                            pageRangeDisplayed="2"
                             loadDataSource={this.getPaginated}
                             activeClassName="active"
                         />

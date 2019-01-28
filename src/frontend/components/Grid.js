@@ -39,7 +39,7 @@ export default class GridModel extends React.Component {
                 <tr key={`key_${counter}`}>
                     {(
                         () => {
-                            const columns = _.map(this.props.attributes, (propertyName, index) => {
+                            return _.map(this.props.attributes, (propertyName, index) => {
                                 const value = this.getPropertyValue(model, propertyName);
                                 return (
                                     <td key={index} className={this.getColumnCssClass(index)}>
@@ -49,8 +49,6 @@ export default class GridModel extends React.Component {
                                     </td>
                                 );
                             });
-                            const actions = _.map(this.props.actions, action => action(model));
-                            return columns.concat(actions);
                         })()}
                 </tr>
             );
