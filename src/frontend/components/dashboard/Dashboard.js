@@ -7,17 +7,17 @@ export default class Dashboard extends React.Component {
             <div>
                 <h3 className="heading">Dashboard</h3>
                 <div className="row">
-                    <Card backgroundColor="bg-aqua"
+                    <Card cardClassName="bg-aqua"
                         linkTitle="Expenses"
                         linkUrl="/expenses"
                         parentClassName="col-sm-6"
                     />
-                    <Card backgroundColor="bg-green"
+                    <Card cardClassName="bg-green"
                         linkTitle="Expenses categories"
                         linkUrl="/expenses/categories"
                         parentClassName="col-sm-6"
                     />
-                    <Card backgroundColor="bg-yellow"
+                    <Card cardClassName="bg-yellow"
                         linkTitle="Expenses report"
                         linkUrl="/expenses/reports/summary"
                         parentClassName="col-sm-12"
