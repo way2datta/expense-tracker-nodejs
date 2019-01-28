@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Grid from './Grid';
+import Grid from './_Grid';
 
 describe('<GridTest />', () => {
     it('Should render all basic elements', () => {

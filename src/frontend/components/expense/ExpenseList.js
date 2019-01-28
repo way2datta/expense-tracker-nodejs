@@ -1,7 +1,7 @@
 import React from 'react';
 const _ = require('lodash');
 import { Link } from 'react-router-dom';
-import Grid from '../Grid';
+import Grid from '../_Grid';
 import AppComponent from "./../utility/AppComponent";
 import ExpenseModel from "./ExpenseModel";
 import { formatDate } from '../../helpers/formatDate';

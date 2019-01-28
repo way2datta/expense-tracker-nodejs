@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import AppComponent from "./../utility/AppComponent";
-import Grid from '../Grid';
+import Grid from '../_Grid';
 import OperationType from "./../utility/OperationType";
 import DeleteModal from "./../../lib/_DeleteModal"
 import Pagination from './../../lib/_Pagination';
