@@ -5,6 +5,10 @@
     "collectCoverageFrom": [
       "**/components/**/*.js",
       "**/helpers/*.js"
+    ],
+    "setupTestFrameworkScriptFile": "./setupTests.js",
+    "setupFiles": [
+      "./setupTests.js"
     ]
   }
   
