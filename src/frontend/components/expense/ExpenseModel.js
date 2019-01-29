@@ -1,5 +1,6 @@
 import axios from 'axios';
 import HttpStatus from 'http-status-codes';
+import { formatCalenderDate } from '../../helpers/formatDate';
 
 export default class ExpenseModel {
     get Url() {
@@ -15,6 +16,18 @@ export default class ExpenseModel {
 
         return newInstance;
     }
+
+    static createInstance() {
+        const newInstance = new ExpenseModel();
+
+        newInstance.id = '';
+        newInstance.amount = '';
+        newInstance.description = '';
+        newInstance.incurredAt = formatCalenderDate(new Date());
+
+        return newInstance;
+    }
+
 
     getPaginated(pageNo, pageSize, callback) {
         axios.get(this.Url, { params: { pageNo, pageSize } })

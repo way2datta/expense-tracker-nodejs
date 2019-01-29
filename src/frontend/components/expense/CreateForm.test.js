@@ -2,11 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import CreateForm from './CreateForm';
 import ExpenseCategoryModel from "./../expense-category/ExpenseCategoryModel";
-
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({ adapter: new Adapter() });
+import ExpenseModel from "./ExpenseModel";
 
 jest.mock("./../expense-category/ExpenseCategoryModel");
 
@@ -37,7 +33,20 @@ describe('<CreateFormTest />', () => {
             };
         });
 
-        const wrapper = mount(<CreateForm />);
+        const wrapper = shallow(<CreateForm />);
         expect(wrapper.state().categories).toHaveLength(1);
     });
+
+    it('Should navigate to expenses after creating new expense', () => {
+        const history = { push: jest.fn() };
+        const wrapper = shallow(<CreateForm history={history} />);
+        const model = ExpenseModel.createInstance();
+        model.create = (callback) => {
+            callback();
+        };
+        wrapper.setState({ model });
+        wrapper.find('ExpenseForm').getElements()[0].props.handleSubmit({ preventDefault: () => { } });
+        expect(history.push).toHaveBeenCalled();
+    });
+
 });
