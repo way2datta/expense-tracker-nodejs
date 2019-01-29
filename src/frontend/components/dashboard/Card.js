@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export function Card(props) {
     return <div className={props.parentClassName}>
@@ -10,3 +11,10 @@ export function Card(props) {
         </div>
     </div>;
 }
+
+Card.propTypes = {
+    parentClassName: PropTypes.string,
+    cardClassName: PropTypes.string,
+    linkUrl: PropTypes.string,
+    linkTitle: PropTypes.string 
+};

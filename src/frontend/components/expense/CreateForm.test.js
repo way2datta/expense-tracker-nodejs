@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import CreateForm from './CreateForm';
-import ExpenseModel from "./ExpenseModel";
 import ExpenseCategoryModel from "./../expense-category/ExpenseCategoryModel";
 
 import { configure } from 'enzyme';

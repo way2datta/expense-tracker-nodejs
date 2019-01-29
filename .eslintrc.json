@@ -1,4 +1,7 @@
 {
+    "env": {
+        "jest": true
+    },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
@@ -17,6 +20,13 @@
             4
         ],
         "class-methods-use-this": "off",
-        "no-console": "warn"
+        "no-console": "warn",
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "react/jsx-filename-extension": [2, { "extensions": [".js"] }],
+        "react/no-multi-comp": [2, { "ignoreStateless": true }],
+        "react/no-typos": 0
     }
 }
