@@ -2,11 +2,21 @@ const mongoose = require('mongoose');
 require('./ExpenseCategory');
 
 const ExpenseSchema = mongoose.Schema({
-    amount: Number,
-    description: String,
-    incurredAt: Date,
+    amount: {
+        type: Number,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    incurredAt: {
+        type: Date,
+        required: true,
+    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'ExpenseCategory',
     },
 },

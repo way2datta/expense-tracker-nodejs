@@ -10,7 +10,7 @@ function errorHandler(error, request, response, next) {
     if (error.name === 'ValidationError') {
         // mongoose validation error
         handleValidationError(error);
-        return response.status(400).json({ validation_error_message: error.message });
+        return response.status(400).json({ validationErrors: error.errors });
     }
 
     if (error.name === 'UnauthorizedError') {
