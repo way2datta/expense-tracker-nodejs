@@ -9,6 +9,9 @@
     "setupTestFrameworkScriptFile": "./setupTests.js",
     "setupFiles": [
       "./setupTests.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
   }
   
