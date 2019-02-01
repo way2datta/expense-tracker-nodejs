@@ -2,7 +2,7 @@ import axios from 'axios';
 import HttpStatus from 'http-status-codes';
 export default class ExpenseCategoryModel {
     get Url() {
-        return 'http://localhost:3000/api/users/1/expenses/categories/';
+        return window.APIUrl + '/users/1/expenses/categories/';
     }
 
     constructor() {
@@ -24,7 +24,7 @@ export default class ExpenseCategoryModel {
     }
 
     getPaginated(pageNo, pageSize, callback) {
-        axios.get(this.Url, { params: { pageNo, pageSize }})
+        axios.get(this.Url, { params: { pageNo, pageSize } })
             .then((response) => {
                 callback(response.data);
             });
@@ -36,7 +36,7 @@ export default class ExpenseCategoryModel {
         }).then((response) => {
             callback(response.data);
         }).catch(error => {
-            if(error.response.status === HttpStatus.BAD_REQUEST) {
+            if (error.response.status === HttpStatus.BAD_REQUEST) {
                 onError(error.response.data.validation_error_message);
             }
         });
@@ -63,7 +63,7 @@ export default class ExpenseCategoryModel {
         }).then((response) => {
             callback(response.data);
         }).catch(error => {
-            if(error.response.status === HttpStatus.BAD_REQUEST) {
+            if (error.response.status === HttpStatus.BAD_REQUEST) {
                 onError(error.response.data.validation_error_message);
             }
         });
