@@ -2,7 +2,7 @@ import React from 'react';
 import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import FormModel from "./Form";
 import AppComponent from '../utility/AppComponent';
-import OperationType from '../utility/operationType';
+import OperationType from '../utility/OperationType';
 const _ = require('lodash');
 
 export default class CreateExpenseCagegoryForm extends AppComponent {
