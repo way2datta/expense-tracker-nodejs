@@ -1,3 +1,4 @@
+import Logger from "./../Logger";
 const ExpenseCategory = require("./../models/ExpenseCategory");
 const Expense = require("./../models/Expense");
 var random = require('lodash').random;
@@ -30,7 +31,7 @@ function seedCategories() {
         seedExpenses(newCategory);
     }
 
-    console.log('Database seeded!');
+    Logger.log('Database seeded!');
 }
 
 

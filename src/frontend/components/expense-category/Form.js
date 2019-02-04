@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const _ = require('lodash');
 
 export default class ExpenseCagegoryForm extends React.Component {
     renderError(key) {
@@ -37,4 +36,5 @@ ExpenseCagegoryForm.propTypes = {
     handleSubmit: PropTypes.func,
     model: PropTypes.object,
     handleChange: PropTypes.func,
+    errors: PropTypes.array
 };
