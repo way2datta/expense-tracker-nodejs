@@ -35,7 +35,7 @@ export default class ExpenseCategoryModel {
         const errors = this.validateModel();
         if (errors) {
             onValidationError(errors);
-            return
+            return;
         }
         axios.post(this.Url, {
             name: this.name
@@ -63,14 +63,19 @@ export default class ExpenseCategoryModel {
             });
     }
 
-    update(callback, onError) {
+    update(callback, onValidationError, onError) {
+        const errors = this.validateModel();
+        if (errors) {
+            onValidationError(errors);
+            return;
+        }
         axios.put(this.Url + this.id, {
             name: this.name
         }).then((response) => {
             callback(response.data);
         }).catch(error => {
             if (error.response.status === HttpStatus.BAD_REQUEST) {
-                onError(error.response.data.validation_error_message);
+                onError(error.response.data.validationErrors);
             }
         });
     }

@@ -11,7 +11,7 @@ export default class EditExpenseCagegoryForm extends AppComponent {
         this.state = {
             model: new ExpenseCategoryModel()
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit', 'onError','onUpdated']);
+        _.bindAll(this, ['handleChange', 'handleSubmit', 'onValidationError','onUpdated']);
     }
 
     componentDidMount() {
@@ -28,8 +28,12 @@ export default class EditExpenseCagegoryForm extends AppComponent {
         this.setState({ model });
     }
 
-    onError(errorMessage) {
-        super.notifyError(errorMessage);
+    onError(errors) {
+        super.notifyError(errors[0].errorMessage);
+    }
+
+    onValidationError(validationErrors) {
+        this.setState({ validationErrors });
     }
 
     onUpdated(category) {
@@ -38,7 +42,7 @@ export default class EditExpenseCagegoryForm extends AppComponent {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.state.model.update(this.onUpdated, this.onError);
+        this.state.model.update(this.onUpdated, this.onValidationError, this.onError);
     }
 
     render() {
@@ -48,6 +52,7 @@ export default class EditExpenseCagegoryForm extends AppComponent {
                     handleSubmit={this.handleSubmit}
                     model={this.state.model}
                     heading="Edit Category"
+                    errors={this.state.validationErrors}
                 />
                 {this.renderToastContainer()}
             </div>
