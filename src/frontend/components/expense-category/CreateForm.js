@@ -9,19 +9,24 @@ export default class CreateExpenseCagegoryForm extends AppComponent {
     constructor(props) {
         super(props);
         this.state = {
-            model: new ExpenseCategoryModel()
+            model: new ExpenseCategoryModel(),
+            validationErrors: {}
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit','onCreated']);
+        _.bindAll(this, ['handleChange', 'handleSubmit', 'onCreated', 'onValidationError']);
     }
 
     handleChange(event) {
         const model = this.state.model;
         model.name = event.target.value;
-        this.setState({ model });
+        this.setState({ model, validationErrors: {} });
     }
 
-    onError(errorMessage) {
-        super.notifyError(errorMessage);
+    onError(errors) {
+        super.notifyError(errors[0].errorMessage);
+    }
+
+    onValidationError(validationErrors) {
+        this.setState({ validationErrors });
     }
 
     onCreated(category) {
@@ -30,7 +35,7 @@ export default class CreateExpenseCagegoryForm extends AppComponent {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.state.model.create(this.onCreated, this.onError);
+        this.state.model.create(this.onCreated, this.onValidationError, this.onError);
     }
 
     render() {
@@ -40,6 +45,7 @@ export default class CreateExpenseCagegoryForm extends AppComponent {
                     handleSubmit={this.handleSubmit}
                     model={this.state.model}
                     heading="Create Category"
+                    errors={this.state.validationErrors}
                 />
                 {this.renderToastContainer()}
             </div>

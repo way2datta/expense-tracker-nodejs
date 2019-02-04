@@ -1,5 +1,6 @@
 import axios from 'axios';
 import HttpStatus from 'http-status-codes';
+
 export default class ExpenseCategoryModel {
     get Url() {
         return window.APIUrl + '/users/1/expenses/categories/';
@@ -30,14 +31,19 @@ export default class ExpenseCategoryModel {
             });
     }
 
-    create(callback, onError) {
+    create(callback, onValidationError, onError) {
+        const errors = this.validateModel();
+        if (errors) {
+            onValidationError(errors);
+            return
+        }
         axios.post(this.Url, {
             name: this.name
         }).then((response) => {
             callback(response.data);
         }).catch(error => {
             if (error.response.status === HttpStatus.BAD_REQUEST) {
-                onError(error.response.data.validation_error_message);
+                onError(error.response.data.validationErrors);
             }
         });
     }
@@ -67,5 +73,14 @@ export default class ExpenseCategoryModel {
                 onError(error.response.data.validation_error_message);
             }
         });
+    }
+
+    getConstraints() {
+        return { name: { presence: { allowEmpty: false } } }
+    }
+
+    validateModel() {
+        var validate = require("validate.js");
+        return validate({ "name": this.name }, this.getConstraints());
     }
 }

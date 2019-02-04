@@ -68,3 +68,4 @@ npm install webpack webpack-cli --save-dev
  npm install --save-dev babel-core@7.0.0-bridge.0
  npm install --save-dev babel-jest babel-core regenerator-runtime
  npm install --save-dev  enzyme enzyme-adapter-react-16
+npm install --save validate.js
