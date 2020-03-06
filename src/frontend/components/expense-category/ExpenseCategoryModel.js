@@ -3,7 +3,7 @@ import HttpStatus from 'http-status-codes';
 
 export default class ExpenseCategoryModel {
     get Url() {
-        return window.APIUrl + '/users/1/expenses/categories/';
+        return '/api/users/1/expenses/categories/';
     }
 
     constructor() {

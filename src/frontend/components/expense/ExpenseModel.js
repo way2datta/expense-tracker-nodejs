@@ -4,7 +4,7 @@ import { formatCalenderDate } from '../../helpers/formatDate';
 
 export default class ExpenseModel {
     get Url() {
-        return window.APIUrl + '/users/1/expenses/';
+        return '/api/users/1/expenses/';
     }
 
     static clone({ _id = 0, amount = 0, description = '', incurredAt }) {

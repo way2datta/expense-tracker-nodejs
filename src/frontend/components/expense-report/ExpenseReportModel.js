@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 export default class ExpenseReportModel {
     getAll (callback) {
-        axios.get(window.APIUrl + '/users/1/expenses/all')
+        axios.get('/api/users/1/expenses/all')
             .then((response) => {
                 callback(this.getSummaryReport(response));
             });
