@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "client-dev": "webpack --mode development --config webpack.config.dev.js",
     "client-prod": "webpack --mode production --config webpack.config.prod.js",
     "build": "npm run clean && mkdir dist && npm run client-dev && babel src/backend/server.js -s -d dist",
@@ -74,7 +74,7 @@
     "jest": "^24.8.0",
     "node-sass": "^4.11.0",
     "regenerator-runtime": "^0.13.2",
-    "rimraf": "^2.6.3",
+    "rimraf": "^2.7.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.35.2",
