@@ -5,7 +5,7 @@ export default class DatabaseInitializer {
         const mongoose = require('mongoose');
         mongoose.Promise = global.Promise;
         mongoose.set('debug', true);
-        mongoose.connect(databaseConnectionString, { useNewUrlParser: true });
+        mongoose.connect(databaseConnectionString, { useNewUrlParser: true, useCreateIndex: true });
         
         const shouldSeedDatabase = process.env.SEED_DATABASE === "true";
 
