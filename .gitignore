@@ -126,3 +126,4 @@ typings/
 dist
 build
 .idea
+src/playground.js
