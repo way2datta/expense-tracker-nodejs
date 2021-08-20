@@ -3,7 +3,6 @@ import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import FormModel from "./Form";
 import AppComponent from '../utility/AppComponent';
 import OperationType from '../utility/OperationType';
-const _ = require('lodash');
 
 export default class CreateExpenseCagegoryForm extends AppComponent {
     constructor(props) {
@@ -12,10 +11,9 @@ export default class CreateExpenseCagegoryForm extends AppComponent {
             model: new ExpenseCategoryModel(),
             validationErrors: {}
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit', 'onCreated', 'onValidationError']);
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const model = this.state.model;
         model.name = event.target.value;
         this.setState({ model, validationErrors: {} });
@@ -25,15 +23,15 @@ export default class CreateExpenseCagegoryForm extends AppComponent {
         super.notifyError(errors[0].errorMessage);
     }
 
-    onValidationError(validationErrors) {
+    onValidationError = (validationErrors) => {
         this.setState({ validationErrors });
     }
 
-    onCreated(category) {
+    onCreated = (category) => {
         this.props.history.push('/expenses/categories', { model: category, type: OperationType.CREATE() });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         this.state.model.create(this.onCreated, this.onValidationError, this.onError);
     }

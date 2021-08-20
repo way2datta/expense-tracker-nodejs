@@ -1,5 +1,4 @@
 import React from 'react';
-const _ = require('lodash');
 import { Link } from 'react-router-dom';
 import Grid from '../_Grid';
 import AppComponent from "./../utility/AppComponent";
@@ -21,10 +20,9 @@ export default class ExpenseList extends AppComponent {
             totalPages: 0,
             selectedModel: undefined,
         };
-        _.bindAll(this, ['getPaginated', 'renderGridActions', 'onCloseModal']);
     }
 
-    onCloseModal() {
+    onCloseModal = () => {
         this.setState({ selectedModel: undefined });
     }
 
@@ -46,14 +44,14 @@ export default class ExpenseList extends AppComponent {
         });
     }
 
-    renderGridActions(model) {
+    renderGridActions = (model) => {
         return <div className="text-right">
             <a className="btn btn-danger text-light btn-sm"
                 onClick={e => this.selectModel(e, model)}>Delete</a>
         </div>
     }
 
-    getPaginated(selected) {
+    getPaginated = (selected) => {
         let { pageNo, pageSize } = this.state;
         if (selected >= 0) {
             pageNo = selected;

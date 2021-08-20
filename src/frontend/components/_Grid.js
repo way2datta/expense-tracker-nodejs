@@ -1,37 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const _ = require('lodash');
-
 export default class GridModel extends React.Component {
-    constructor(props) {
-        super(props);
-        _.bindAll(this, ['renderHeaders', 'renderContent']);
-    }
-
-    renderHeaders() {
+    renderHeaders = () => {
         return (
             <tr key="column-header">
                 {(() => {
-                    const headers = _.map(this.props.headers, (header, index) =>
+                    const headers = this.props.headers.map((header, index) =>
                         (<th key={`th_${index}`} className={this.getHeaderCssClass(index)}>{header}</th>));
 
-                    const actionHeaders = _.map(this.props.actionHeaders,
-                        actionHeader => actionHeader());
+                    const actionHeaders = this.props.actionHeaders ? this.props.actionHeaders.map(x => actionHeader()):[];
                     return headers.concat(actionHeaders);
                 })()}
             </tr>
         );
     }
 
-    getHeaderCssClass(index) {
+    getHeaderCssClass = (index) => {
         return this.props.headerCssClasses !== undefined ? this.props.headerCssClasses[index] : '';
     }
 
-    getColumnCssClass(index) {
+    getColumnCssClass = (index) => {
         return this.props.columnCssClasses !== undefined ? this.props.columnCssClasses[index] : '';
     }
 
-    renderContent() {
+    renderContent = () => {
         let counter = 0;
         return this.props.datasource.map(((model) => {
             counter += 1;
@@ -39,7 +31,7 @@ export default class GridModel extends React.Component {
                 <tr key={`key_${counter}`}>
                     {(
                         () => {
-                            return _.map(this.props.attributes, (propertyName, index) => {
+                            return this.props.attributes.map((propertyName, index) => {
                                 const value = this.getPropertyValue(model, propertyName);
                                 return (
                                     <td key={index} className={this.getColumnCssClass(index)}>
@@ -55,7 +47,7 @@ export default class GridModel extends React.Component {
         }));
     }
 
-    getPropertyValue(model, propertyName) {
+    getPropertyValue = (model, propertyName) => {
         if (typeof propertyName === 'function') {
             return propertyName(model);
         }
@@ -69,7 +61,7 @@ export default class GridModel extends React.Component {
         return model[propertyName];
     }
 
-    renderDatasource() {
+    renderDatasource = () => {
         return (
             <table className="table">
                 <thead className="headers">
@@ -81,7 +73,7 @@ export default class GridModel extends React.Component {
             </table>);
     }
 
-    render() {
+    render = () => {
         if (this.props.datasource.length) {
             return this.renderDatasource();
         }

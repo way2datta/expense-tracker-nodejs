@@ -1,41 +1,34 @@
 import BaseController from "./BaseController";
 import UserService from './../services/UserService';
-var _ = require('lodash');
 
-export default class UserController extends BaseController{
-    constructor(props) {
-        super(props);
+export default class UserController extends BaseController {
+    constructor() {
+        super();
         this.service = new UserService();
-        _.bindAll(this, ['register', 'update', 'getAll', 'getById', 'delete']);
     }
 
-    register(request, response, next) {
-        this.service.create(request.body)
-            .then((user) => super.OK(response, user))
-            .catch(err => next(err));
-    }
-    
-    getById(request, response,next) {
-        this.service.getById(request.params.userId)
-            .then(category => category ? super.OK(response, category) : super.BAD_REQUEST(response))
-            .catch(error => next(error));
+    register = async (request, response) => {
+        const created = await this.service.create(request.body)
+        return super.OK(response, created);
     }
 
-    getAll(request, response, next) {
-        this.service.getAll()
-            .then(category => super.OK(response, category))
-            .catch(error => next(error));
+    getById = async (request, response) => {
+        const existing = await this.service.getById(request.params.userId)
+        existing ? super.OK(response, existing) : super.BAD_REQUEST(response);
     }
 
-    update(request, response, next) {
-        this.service.update(request.params.userId, request.body)
-            .then((category) => super.OK(response, category))
-            .catch(error => next(error));
+    getAll = async (request, response) => {
+        const allUsers = await this.service.getAll()
+        super.OK(response, allUsers);
     }
 
-    delete(request, response, next) {
-        this.service.delete(request.params.userId)
-            .then(() => super.OK(response))
-            .catch(error => next(error));
+    update = async (request, response) => {
+        const updated = await this.service.update(request.params.userId, request.body)
+        return super.OK(response, updated);
+    }
+
+    delete = async (request, response) => {
+        await this.service.delete(request.params.userId)
+        super.OK(response);
     }
 }

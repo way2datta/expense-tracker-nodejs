@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const _ = require('lodash');
 import ReactPaginate from 'react-paginate';
 
 export default class Pagination extends React.Component {
     constructor(props) {
         super(props);
-        _.bindAll(this, ['handlePageClick']);
     }
 
-    handlePageClick(data) {
+    handlePageClick = (data) => {
         let selected = data.selected;
         let offset = Math.ceil(selected * this.props.perPage);
         this.setState({ offset: offset }, () => {

@@ -1,56 +1,46 @@
 import BaseController from './BaseController';
 import ExpenseCategoryService from './../services/ExpenseCategoryService';
-var _ = require('lodash');
 
-export default class ExpenseCategoryController extends BaseController{
-    constructor(props) {
-        super(props);
-        this.service = new ExpenseCategoryService();
-        _.bindAll(this, ['create', 'update', 'getAll', 'getById', 'delete',
-            'getPaginated','getCount']);
+export default class ExpenseCategoryController extends BaseController {
+    constructor(service = new ExpenseCategoryService()) {
+        super();
+        this.service = service;
     }
 
-    create(request, response, next) {
-        this.service.create(request.body)
-            .then((category) => super.CREATED(response, category))
-            .catch(error => next(error));
+    create = async (request, response) => {
+        const newCategory = await this.service.create(request.body)
+        return super.CREATED(response, newCategory);
     }
 
-    getById(request, response,next) {
-        this.service.getById(request.params.categoryId)
-            .then(category => category ? super.OK(response, category) : super.BAD_REQUEST(response))
-            .catch(error => next(error));
+    getById = async (request, response) => {
+        const existing = await this.service.getById(request.params.categoryId)
+        existing ? super.OK(response, existing) : super.BAD_REQUEST(response)
     }
 
-    getAll(request, response, next) {
-        this.service.getAll()
-            .then(category => super.OK(response, category))
-            .catch(error => next(error));
+    getAll = async (request, response) => {
+        const categories = await this.service.getAll();
+        return super.OK(response, categories);
     }
 
-    getPaginated(request, response, next) {
-        this.service.getPaginated(request)
-            .then(category => super.OK(response, category))
-            .catch(error => next(error));
-    }
-    
-    getCount(request, response, next) {
-        this.service.getCount(request)
-            .then(category => super.OK(response, category))
-            .catch(error => next(error));
+    getPaginated = async (request, response) => {
+        const paginated = await this.service.getPaginated(request);
+        super.OK(response, paginated);
     }
 
-    update(request, response, next) {
-        this.service.update(request.params.categoryId, request.body)
-            .then((category) => super.OK(response, category))
-            .catch(err => next(err));
+    getCount = async (request, response) => {
+        const categoriesCount = await this.service.getCount(request)
+        super.OK(response, categoriesCount);
     }
 
-    delete(request, response, next) {
-        this.service.delete(request.params.categoryId)
-            .then(() => super.OK(response))
-            .catch(error => next(error));
+    update = async (request, response) => {
+        const updated = await this.service.update(request.params.categoryId, request.body)
+        super.OK(response, updated);
+    }
+
+    delete = async (request, response) => {
+        await this.service.delete(request.params.categoryId)
+        super.OK(response);
     }
 }
 
-    
+

@@ -2,7 +2,6 @@ import React from 'react';
 import { BarChart, Bar, Cell, CartesianGrid, XAxis, YAxis, Tooltip, LabelList, ResponsiveContainer }
     from 'recharts';
 import ExpenseReportModel from "./ExpenseReportModel";
-var _ = require('lodash');
 
 export default class ExpenseReportSummary extends React.Component {
     constructor(props) {
@@ -14,7 +13,6 @@ export default class ExpenseReportSummary extends React.Component {
             model: new ExpenseReportModel(),
             monthAndYearSelected: this.getCurrentMonthAndYear(),
         };
-        _.bindAll(this, ['getSelectedMonthAndYear']);
     }
 
     getMonthName(month) {
@@ -24,7 +22,7 @@ export default class ExpenseReportSummary extends React.Component {
         return monthNames[month];
     }
 
-    getSelectedMonthAndYear() {
+    getSelectedMonthAndYear = () => {
         const { month, year } = this.state.monthAndYearSelected;
         return this.getMonthName(month) + " - " + year;
     }

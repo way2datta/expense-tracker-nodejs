@@ -3,8 +3,6 @@ import ExpenseModel from "./ExpenseModel";
 import ExpenseCategoryModel from "./../expense-category/ExpenseCategoryModel";
 import Form from "./Form";
 
-const _ = require('lodash');
-
 export default class CreateExpenseFormModel extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +11,6 @@ export default class CreateExpenseFormModel extends React.Component {
             model,
             categories: []
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit']);
     }
 
     componentDidMount() {
@@ -27,13 +24,13 @@ export default class CreateExpenseFormModel extends React.Component {
         });
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const model = this.state.model;
         model[event.target.name] = event.target.value;
         this.setState({ model });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         const that = this;
         this.state.model.create(() => {

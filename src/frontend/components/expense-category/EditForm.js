@@ -3,7 +3,6 @@ import ExpenseCategoryModel from "./ExpenseCategoryModel";
 import Form from "./Form";
 import AppComponent from '../utility/AppComponent';
 import OperationType from '../utility/OperationType';
-const _ = require('lodash');
 
 export default class EditExpenseCagegoryForm extends AppComponent {
     constructor(props) {
@@ -11,7 +10,6 @@ export default class EditExpenseCagegoryForm extends AppComponent {
         this.state = {
             model: new ExpenseCategoryModel()
         };
-        _.bindAll(this, ['handleChange', 'handleSubmit', 'onValidationError','onUpdated']);
     }
 
     componentDidMount() {
@@ -22,7 +20,7 @@ export default class EditExpenseCagegoryForm extends AppComponent {
         });
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const model = this.state.model;
         model.name = event.target.value;
         this.setState({ model });
@@ -32,15 +30,15 @@ export default class EditExpenseCagegoryForm extends AppComponent {
         super.notifyError(errors[0].errorMessage);
     }
 
-    onValidationError(validationErrors) {
+    onValidationError = (validationErrors) => {
         this.setState({ validationErrors });
     }
 
-    onUpdated(category) {
+    onUpdated = (category) => {
         this.props.history.push('/expenses/categories', { model: category, type: OperationType.UPDATE() });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         this.state.model.update(this.onUpdated, this.onValidationError, this.onError);
     }

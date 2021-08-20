@@ -7,12 +7,9 @@ import OperationType from "./../utility/OperationType";
 import DeleteModal from "./../../lib/_DeleteModal"
 import Pagination from './../../lib/_Pagination';
 
-const _ = require('lodash');
-
 export default class ExpenseCategoryList extends AppComponent {
     constructor(props) {
         super(props);
-
         this.state = {
             datasource: [],
             model: new ExpenseCategoryModel(),
@@ -21,11 +18,9 @@ export default class ExpenseCategoryList extends AppComponent {
             totalPages: 0,
             selectedModel: undefined
         };
-
-        _.bindAll(this, ['renderGridActions', 'getPaginated', 'onCloseModal']);
     }
 
-    onCloseModal() {
+    onCloseModal = () => {
         this.setState({ selectedModel: undefined });
     }
 
@@ -43,7 +38,7 @@ export default class ExpenseCategoryList extends AppComponent {
         });
     }
 
-    renderGridActions(model) {
+    renderGridActions = (model) => {
         return <div className="text-right">
             <a className="btn btn-primary text-light btn-sm margin-right-20"
                 onClick={e => this.edit(e, model)}>Edit</a>
@@ -67,7 +62,7 @@ export default class ExpenseCategoryList extends AppComponent {
         this.props.history.push('/expenses/categories/edit/' + model._id);
     }
 
-    getPaginated(selected) {
+    getPaginated = (selected) => {
         let { pageNo, pageSize } = this.state;
         if (selected >= 0) {
             pageNo = +selected;
